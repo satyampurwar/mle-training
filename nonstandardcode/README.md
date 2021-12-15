@@ -14,5 +14,20 @@ The following techniques have been used:
  - Multiple sampling techinuqies are evaluated. The data set is split into train and test.
  - All the above said modelling techniques are tried and evaluated. The final metric used to evaluate is mean squared error.
 
+## Steps to setup the development environment
+conda create --name mle-dev python=3.9.5
+conda activate mle-dev
+cd <project_folder>/mle-training
+conda env export --name mle-dev > env.yml
+conda install --yes numpy
+conda install --yes pandas
+conda install --yes matplotlib
+conda install --yes scikit-learn
+conda env export --name mle-dev > env.yml
+## To deactivate current environment
+conda deactivate
+## To activate development environment
+conda activate mle-dev
 ## To excute the script
-python < scriptname.py >
+cd <project_folder>/mle-training
+python nonstandardcode/nonstandardcode.py
