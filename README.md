@@ -12,6 +12,9 @@ conda install --yes scikit-learn
 conda env export --name mle-dev > env.yml
 ## To deactivate current environment
 conda deactivate
+
+## The above steps to setup development will not be required as you can spin up environment with help 
+## of env.yml file already existing in mle-training repository, follow below steps -
 ## To activate development environment
 conda activate mle-dev
 ## To excute the script
