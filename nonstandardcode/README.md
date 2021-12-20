@@ -1,8 +1,8 @@
 # Median housing value prediction
 
-The housing data can be downloaded from https://raw.githubusercontent.com/ageron/handson-ml/master/. The script has codes to download the data. We have modelled the median house value on given housing data. 
+The housing data can be downloaded from https://raw.githubusercontent.com/ageron/handson-ml/master/. The script has codes to download the data. We have modelled the median house value on given housing data.
 
-The following techniques have been used: 
+The following techniques have been used:
 
  - Linear regression
  - Decision Tree
@@ -18,16 +18,16 @@ The following techniques have been used:
  - conda create --name mle-dev python=3.9.5
  - conda activate mle-dev
  - cd <project_folder>/mle-training
- - conda env export --name mle-dev > env.yml
+ - conda env export --name mle-dev > env.yml \
 Installing utilities:
  - conda install --yes numpy
  - conda install --yes pandas
  - conda install --yes matplotlib
- - conda install --yes scikit-learn
+ - conda install --yes scikit-learn \
 Installing code formatters:
  - conda install --yes black
  - conda install --yes isort
- - conda install --yes flake8
+ - conda install --yes flake8 \
 Exporting environment file:
  - conda env export --name mle-dev > env.yml
 ## To deactivate current environment
