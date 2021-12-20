@@ -4,16 +4,16 @@ Tamlep
  - conda create --name mle-dev python=3.9.5
  - conda activate mle-dev
  - cd <project_folder>/mle-training
- - conda env export --name mle-dev > env.yml /
+ - conda env export --name mle-dev > env.yml \
 Installing utilities:
  - conda install --yes numpy
  - conda install --yes pandas
  - conda install --yes matplotlib
- - conda install --yes scikit-learn /
+ - conda install --yes scikit-learn \
 Installing code formatters:
  - conda install --yes black
  - conda install --yes isort
- - conda install --yes flake8 /
+ - conda install --yes flake8 \
 Exporting environment file:
  - conda env export --name mle-dev > env.yml
 ## To deactivate current environment
