@@ -1,4 +1,20 @@
-#Ignore pyc extension files
+#Ignore pyc extension files anywhere
 *.pyc
-#Ignore csv data files
+#Ignore csv data files anywhere
 *.csv
+#Ignore tgz data files anywhere
+*.tgz
+#Ignore pkl files anywhere
+*.pkl
+#Ignore log files anywhere
+*.log
+# Ignore setuptools distribution folder in root location
+/dist/
+# Ignore python egg metadata in src folder, regenerated from source files by setuptools
+/src/*.egg-info
+# Ignore pycache folder anywhere
+__pycache__/
+# Ignore pytestcache folder in root location
+/.pytest_cache/
+# Ignore ipynb_checkpoints folder anywhere
+.ipynb_checkpoints/
