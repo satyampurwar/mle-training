@@ -59,6 +59,7 @@ The above steps to setup development will not be required as you can spin up env
 
 ## To rewrite html documentation using sphinx
  - cd <project_folder>/mle-training/docs
+ - rm source/housing_value.rst source/modules.rst
  - sphinx-apidoc -o ./source ../src/housing_value
  - make amendments in source/housing_value.rst if required before build
  - make clean
