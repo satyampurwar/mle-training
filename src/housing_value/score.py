@@ -158,6 +158,62 @@ def scoring_test_data(
     return output, rmse
 
 
+def scoring_with_pipeline(
+    df, actuals, pickle_path=None, pipe_file=None, output_path=None, output_file=None,
+):
+    """Function to score predictions based on inputs/features provided to trained pipeline.
+
+    Parameters
+    ----------
+    df : object
+        The pandas dataframe of features before imputation and feature engineering.
+    actuals : object
+        The pandas series of labels for comparision with predictions.
+    pickle_path : str
+        The directory to read model pickle file.
+    pipe_file : str
+        The name of pipe file (for e.g - something.pkl).
+    output_path : str
+        The directory to store actuals & predictions.
+    output_file : str
+        The name of output file (for e.g - something.csv).
+
+    Returns
+    -------
+    output : object
+        The pandas dataframe containing actuals & predictions.
+    rmse : float
+        The root mean square error.
+
+    """
+    logger.debug("Scoring with Pipeline")
+    if pickle_path and pipe_file:
+        file = open(f"{pickle_path}/{pipe_file}", "rb")
+        pipe = pickle.load(file)
+    elif pickle_path:
+        file = open(f"{pickle_path}/pipe.pkl", "rb")
+        pipe = pickle.load(file)
+    else:
+        pass
+    predictions = pipe.predict(df)
+    output = pd.DataFrame()
+    output["Actual"] = actuals
+    output["Prediction"] = predictions
+    if output_path and output_file:
+        output.to_csv(path_or_buf=f"{output_path}/{output_file}", index=False)
+        logger.info(f"Stored {output_file} at : {output_path}")
+    elif output_path:
+        output.to_csv(path_or_buf=f"{output_path}/output.csv", index=False)
+        logger.info(f"Stored scored/output data at : {output_path}")
+    else:
+        pass
+    rmse = np.sqrt(mean_squared_error(actuals, predictions))
+    logger.info(f"Mean of actuals : {np.mean(actuals)}")
+    logger.info(f"rmse : {rmse}")
+    logger.info(f"Ratio of rmse to mean : {np.round(rmse/np.mean(actuals),2)}")
+    return output, rmse
+
+
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("setup.cfg")
@@ -238,21 +294,34 @@ if __name__ == "__main__":
     else:
         OUTPUT_DATA = str(config["Default"]["output_data"])
 
-    IMPUTER_FILE = str(config["Default"]["imputer_file"])
+    # IMPUTER_FILE = str(config["Default"]["imputer_file"])
 
-    MODEL_FILE = str(config["Default"]["model_file"])
+    # MODEL_FILE = str(config["Default"]["model_file"])
+
+    PIPE_FILE = str(config["Default"]["pipe_file"])
 
     OUTPUT_FILE = str(config["Default"]["output_file"])
 
     X_test, y_test = load_scoring_data(processed_path=PROCESSED_DATA)
-    X_test_prepared = replicate_feature_engineering(
-        df=X_test, pickle_path=PICKLE_DATA, imputer_file=IMPUTER_FILE
-    )
-    output, rmse = scoring_test_data(
-        df_prepared=X_test_prepared,
+
+    # X_test_prepared = replicate_feature_engineering(
+    #     df=X_test, pickle_path=PICKLE_DATA, imputer_file=IMPUTER_FILE
+    # )
+
+    # output, rmse = scoring_test_data(
+    #     df_prepared=X_test_prepared,
+    #     actuals=y_test,
+    #     pickle_path=PICKLE_DATA,
+    #     model_file=MODEL_FILE,
+    #     output_path=PROCESSED_DATA,
+    #     output_file=OUTPUT_FILE,
+    # )
+
+    output, rmse = scoring_with_pipeline(
+        df=X_test,
         actuals=y_test,
         pickle_path=PICKLE_DATA,
-        model_file=MODEL_FILE,
+        pipe_file=PIPE_FILE,
         output_path=PROCESSED_DATA,
         output_file=OUTPUT_FILE,
     )

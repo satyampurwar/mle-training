@@ -19,9 +19,14 @@ import logging
 import pickle
 
 import pandas as pd
+from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder
+
+from housing_value.utility import AdditionalAttributes
 
 logger = logging.getLogger(__name__)
 
@@ -153,6 +158,84 @@ def rf_regressor_model_training(df_prepared, labels, pickle_path=None, model_fil
     return model
 
 
+def training_with_pipeline(df, labels, pickle_path=None, pipe_file=None):
+    """Function to transform data and train model in one pipeline.
+
+    Parameters
+    ----------
+    df : object
+        The pandas dataframe of features before imputation and feature engineering.
+    labels : object
+        The pandas series of labels for supervised learning.
+    pickle_path : str
+        The directory to store pipe pickle file.
+    pipe_file : str
+        The name of pipe file (for e.g - something.pkl).
+
+    Returns
+    -------
+    pipe : object
+        The sklearn.pipeline.Pipeline object.
+
+    """
+    logger.debug("Training Pipeline")
+
+    numeric_features = [col for col in df.columns if col != "ocean_proximity"]
+    numeric_transformer = Pipeline(
+        [
+            ("imputer", SimpleImputer(strategy="median")),
+            ("new_attributes", AdditionalAttributes()),
+        ]
+    )
+    categorical_features = ["ocean_proximity"]
+    categorical_transformer = OneHotEncoder(handle_unknown="ignore")
+
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ("num", numeric_transformer, numeric_features),
+            ("cat", categorical_transformer, categorical_features),
+        ]
+    )
+
+    pipeline = Pipeline(
+        steps=[
+            ("preprocessor", preprocessor),
+            ("rf", RandomForestRegressor(random_state=42)),
+        ]
+    )
+
+    param_grid = [
+        # try 12 (3×4) combinations of hyperparameters
+        {"rf__n_estimators": [3, 10, 30], "rf__max_features": [2, 4, 6, 8]},
+        # then try 6 (2×3) combinations with bootstrap set as False
+        {
+            "rf__bootstrap": [False],
+            "rf__n_estimators": [3, 10],
+            "rf__max_features": [2, 3, 4],
+        },
+    ]
+
+    # train across 5 folds, that's a total of (12+6)*5=90 rounds of training
+    grid_search = GridSearchCV(
+        pipeline,
+        param_grid,
+        cv=5,
+        scoring="neg_mean_squared_error",
+        return_train_score=True,
+    )
+    grid_search.fit(df, labels)
+    pipe = grid_search.best_estimator_
+    if pickle_path and pipe_file:
+        pickle.dump(pipe, open(f"{pickle_path}/{pipe_file}", "wb"))
+        logger.info(f"Saved {pipe_file} at : {pickle_path}")
+    elif pickle_path:
+        pickle.dump(pipe, open(f"{pickle_path}/pipe.pkl", "wb"))
+        logger.info(f"Saved pipe pickle file at : {pickle_path}")
+    else:
+        pass
+    return pipe
+
+
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("setup.cfg")
@@ -222,17 +305,25 @@ if __name__ == "__main__":
     else:
         PICKLE_DATA = str(config["Default"]["pickle_data"])
 
-    IMPUTER_FILE = str(config["Default"]["imputer_file"])
+    # IMPUTER_FILE = str(config["Default"]["imputer_file"])
 
-    MODEL_FILE = str(config["Default"]["model_file"])
+    # MODEL_FILE = str(config["Default"]["model_file"])
+
+    PIPE_FILE = str(config["Default"]["pipe_file"])
 
     housing, housing_labels = load_training_data(processed_path=PROCESSED_DATA)
-    imputer, housing_prepared = original_feature_engineering(
-        df=housing, pickle_path=PICKLE_DATA, imputer_file=IMPUTER_FILE
-    )
-    model = rf_regressor_model_training(
-        df_prepared=housing_prepared,
-        labels=housing_labels,
-        pickle_path=PICKLE_DATA,
-        model_file=MODEL_FILE,
+
+    # imputer, housing_prepared = original_feature_engineering(
+    #     df=housing, pickle_path=PICKLE_DATA, imputer_file=IMPUTER_FILE
+    # )
+
+    # model = rf_regressor_model_training(
+    #     df_prepared=housing_prepared,
+    #     labels=housing_labels,
+    #     pickle_path=PICKLE_DATA,
+    #     model_file=MODEL_FILE,
+    # )
+
+    pipe = training_with_pipeline(
+        df=housing, labels=housing_labels, pickle_path=PICKLE_DATA, pipe_file=PIPE_FILE,
     )
