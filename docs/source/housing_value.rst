@@ -12,6 +12,14 @@ Module
 Submodules
 ----------
 
+housing\_value.utility module
+-----------------------------
+
+.. automodule:: housing_value.utility
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 housing\_value.ingest\_data module
 ----------------------------------
 

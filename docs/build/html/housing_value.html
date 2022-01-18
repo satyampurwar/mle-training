@@ -40,6 +40,7 @@
 <li><a class="reference internal" href="#">housing_value package</a><ul>
 <li><a class="reference internal" href="#module-housing_value">Module</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-housing_value.utility">housing_value.utility module</a></li>
 <li><a class="reference internal" href="#module-housing_value.ingest_data">housing_value.ingest_data module</a></li>
 <li><a class="reference internal" href="#module-housing_value.train">housing_value.train module</a></li>
 <li><a class="reference internal" href="#module-housing_value.score">housing_value.score module</a></li>
@@ -80,6 +81,28 @@
 </section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-housing_value.utility">
+<span id="housing-value-utility-module"></span><h2>housing_value.utility module<a class="headerlink" href="#module-housing_value.utility" title="Permalink to this headline"></a></h2>
+<p class="rubric">Notes</p>
+<p>This is a utility file consists of custom classes.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="housing_value.utility.AdditionalAttributes">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">housing_value.utility.</span></span><span class="sig-name descname"><span class="pre">AdditionalAttributes</span></span><a class="headerlink" href="#housing_value.utility.AdditionalAttributes" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
+<p>Class to transform dataframe by adding new columns to dataframe.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="housing_value.utility.AdditionalAttributes.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing_value.utility.AdditionalAttributes.fit" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="housing_value.utility.AdditionalAttributes.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing_value.utility.AdditionalAttributes.transform" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-housing_value.ingest_data">
 <span id="housing-value-ingest-data-module"></span><h2>housing_value.ingest_data module<a class="headerlink" href="#module-housing_value.ingest_data" title="Permalink to this headline"></a></h2>
@@ -301,6 +324,28 @@ display</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="housing_value.train.training_with_pipeline">
+<span class="sig-prename descclassname"><span class="pre">housing_value.train.</span></span><span class="sig-name descname"><span class="pre">training_with_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pickle_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipe_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing_value.train.training_with_pipeline" title="Permalink to this definition"></a></dt>
+<dd><p>Function to transform data and train model in one pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>object</em>) – The pandas dataframe of features before imputation and feature engineering.</p></li>
+<li><p><strong>labels</strong> (<em>object</em>) – The pandas series of labels for supervised learning.</p></li>
+<li><p><strong>pickle_path</strong> (<em>str</em>) – The directory to store pipe pickle file.</p></li>
+<li><p><strong>pipe_file</strong> (<em>str</em>) – The name of pipe file (for e.g - something.pkl).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>pipe</strong> – The sklearn.pipeline.Pipeline object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-housing_value.score">
 <span id="housing-value-score-module"></span><h2>housing_value.score module<a class="headerlink" href="#module-housing_value.score" title="Permalink to this headline"></a></h2>
@@ -387,6 +432,31 @@ display</p>
 <li><p><strong>actuals</strong> (<em>object</em>) – The pandas series of labels for comparision with predictions.</p></li>
 <li><p><strong>pickle_path</strong> (<em>str</em>) – The directory to read model pickle file.</p></li>
 <li><p><strong>model_file</strong> (<em>str</em>) – The name of model file (for e.g - something.pkl).</p></li>
+<li><p><strong>output_path</strong> (<em>str</em>) – The directory to store actuals &amp; predictions.</p></li>
+<li><p><strong>output_file</strong> (<em>str</em>) – The name of output file (for e.g - something.csv).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>output</strong> (<em>object</em>) – The pandas dataframe containing actuals &amp; predictions.</p></li>
+<li><p><strong>rmse</strong> (<em>float</em>) – The root mean square error.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="housing_value.score.scoring_with_pipeline">
+<span class="sig-prename descclassname"><span class="pre">housing_value.score.</span></span><span class="sig-name descname"><span class="pre">scoring_with_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actuals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pickle_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipe_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#housing_value.score.scoring_with_pipeline" title="Permalink to this definition"></a></dt>
+<dd><p>Function to score predictions based on inputs/features provided to trained pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>object</em>) – The pandas dataframe of features before imputation and feature engineering.</p></li>
+<li><p><strong>actuals</strong> (<em>object</em>) – The pandas series of labels for comparision with predictions.</p></li>
+<li><p><strong>pickle_path</strong> (<em>str</em>) – The directory to read model pickle file.</p></li>
+<li><p><strong>pipe_file</strong> (<em>str</em>) – The name of pipe file (for e.g - something.pkl).</p></li>
 <li><p><strong>output_path</strong> (<em>str</em>) – The directory to store actuals &amp; predictions.</p></li>
 <li><p><strong>output_file</strong> (<em>str</em>) – The name of output file (for e.g - something.csv).</p></li>
 </ul>
