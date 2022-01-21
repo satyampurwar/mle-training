@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<!-- saved from url=(0120)https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#algorithm-chains-and-pipelines -->
+<html class=" js flexbox flexboxlegacy no-touch websqldatabase indexeddb history csscolumns csstransforms localstorage sessionstorage applicationcache svg inlinesvg zoom" lang="en" prefix="og: http://ogp.me/ns/# og:book: http://ogp.me/ns/book# og:video: http://ogp.me/ns/video#" itemscope="" itemtype="http://schema.org/Book http://schema.org/ItemPage" data-login-url="/accounts/login/" data-offline-url="/" data-url="/library/view/introduction-to-machine/9781449369880/ch06.html" data-csrf-cookie="csrfsafari" data-highlight-privacy="" data-user-id="6204059" data-user-uuid="d5ff66c5-8631-4846-a88c-12cdf17d9449" data-username="senganalthirunavukkarasu" data-account-type="B2B" data-activated-trial-date="12/20/2016" data-archive="9781449369880" data-publishers="O&#39;Reilly Media, Inc." data-htmlfile-name="ch06.html" data-epub-title="Introduction to Machine Learning with Python" data-debug="0" data-testing="0" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="author" content="Safari Books Online"><meta name="format-detection" content="telephone=no"><meta http-equiv="cleartype" content="on"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="apple-itunes-app" content="app-id=881697395, app-argument=safaridetail://9781449369880"><link rel="shortcut icon" href="https://www.oreilly.com/favicon.ico"><meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0"><meta property="twitter:account_id" content="4503599627559754"><link rel="shortcut icon" href="https://learning.oreilly.com/favicon.ico" type="image/x-icon"><link href="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/css" rel="stylesheet" type="text/css"><title>6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python</title><link rel="stylesheet" href="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/output.731fc84c4f9a.css" type="text/css"><link rel="stylesheet" type="text/css" href="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/annotator.e3b0c44298fc.css"><link rel="stylesheet" href="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/font-awesome.min.css"><style type="text/css" title="ibis-book">
+    @charset "utf-8";#sbo-rt-content html,#sbo-rt-content div,#sbo-rt-content div,#sbo-rt-content span,#sbo-rt-content applet,#sbo-rt-content object,#sbo-rt-content iframe,#sbo-rt-content h1,#sbo-rt-content h2,#sbo-rt-content h3,#sbo-rt-content h4,#sbo-rt-content h5,#sbo-rt-content h6,#sbo-rt-content p,#sbo-rt-content blockquote,#sbo-rt-content pre,#sbo-rt-content a,#sbo-rt-content abbr,#sbo-rt-content acronym,#sbo-rt-content address,#sbo-rt-content big,#sbo-rt-content cite,#sbo-rt-content code,#sbo-rt-content del,#sbo-rt-content dfn,#sbo-rt-content em,#sbo-rt-content img,#sbo-rt-content ins,#sbo-rt-content kbd,#sbo-rt-content q,#sbo-rt-content s,#sbo-rt-content samp,#sbo-rt-content small,#sbo-rt-content strike,#sbo-rt-content strong,#sbo-rt-content sub,#sbo-rt-content sup,#sbo-rt-content tt,#sbo-rt-content var,#sbo-rt-content b,#sbo-rt-content u,#sbo-rt-content i,#sbo-rt-content center,#sbo-rt-content dl,#sbo-rt-content dt,#sbo-rt-content dd,#sbo-rt-content ol,#sbo-rt-content ul,#sbo-rt-content li,#sbo-rt-content fieldset,#sbo-rt-content form,#sbo-rt-content label,#sbo-rt-content legend,#sbo-rt-content table,#sbo-rt-content caption,#sbo-rt-content tdiv,#sbo-rt-content tfoot,#sbo-rt-content thead,#sbo-rt-content tr,#sbo-rt-content th,#sbo-rt-content td,#sbo-rt-content article,#sbo-rt-content aside,#sbo-rt-content canvas,#sbo-rt-content details,#sbo-rt-content embed,#sbo-rt-content figure,#sbo-rt-content figcaption,#sbo-rt-content footer,#sbo-rt-content header,#sbo-rt-content hgroup,#sbo-rt-content menu,#sbo-rt-content nav,#sbo-rt-content output,#sbo-rt-content ruby,#sbo-rt-content section,#sbo-rt-content summary,#sbo-rt-content time,#sbo-rt-content mark,#sbo-rt-content audio,#sbo-rt-content video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}#sbo-rt-content article,#sbo-rt-content aside,#sbo-rt-content details,#sbo-rt-content figcaption,#sbo-rt-content figure,#sbo-rt-content footer,#sbo-rt-content header,#sbo-rt-content hgroup,#sbo-rt-content menu,#sbo-rt-content nav,#sbo-rt-content section{display:block}#sbo-rt-content div{line-height:1}#sbo-rt-content ol,#sbo-rt-content ul{list-style:none}#sbo-rt-content blockquote,#sbo-rt-content q{quotes:none}#sbo-rt-content blockquote:before,#sbo-rt-content blockquote:after,#sbo-rt-content q:before,#sbo-rt-content q:after{content:none}#sbo-rt-content table{border-collapse:collapse;border-spacing:0}@page{margin:5px !important}#sbo-rt-content p{margin:10px 0 0;line-height:125%;text-align:left}#sbo-rt-content p.byline{text-align:left;margin:-33px auto 35px;font-style:italic;font-weight:bold}#sbo-rt-content div.preface p+p.byline{margin:1em 0 0 !important}#sbo-rt-content div.preface p.byline+p.byline{margin:0 !important}#sbo-rt-content div.sect1>p.byline{margin:-.25em 0 1em}#sbo-rt-content div.sect1>p.byline+p.byline{margin-top:-1em}#sbo-rt-content em{font-style:italic;font-family:inherit}#sbo-rt-content em strong,#sbo-rt-content strong em{font-weight:bold;font-style:italic;font-family:inherit}#sbo-rt-content strong,#sbo-rt-content span.bold{font-weight:bold}#sbo-rt-content em.replaceable{font-style:italic}#sbo-rt-content strong.userinput{font-weight:bold;font-style:normal}#sbo-rt-content span.bolditalic{font-weight:bold;font-style:italic}#sbo-rt-content a.ulink,#sbo-rt-content a.xref,#sbo-rt-content a.email,#sbo-rt-content a.link,#sbo-rt-content a{text-decoration:none;color:#8e0012}#sbo-rt-content span.lineannotation{font-style:italic;color:#a62a2a;font-family:serif}#sbo-rt-content span.underline{text-decoration:underline}#sbo-rt-content span.strikethrough{text-decoration:line-through}#sbo-rt-content span.smallcaps{font-variant:small-caps}#sbo-rt-content span.cursor{background:#000;color:#fff}#sbo-rt-content span.smaller{font-size:75%}#sbo-rt-content .boxedtext,#sbo-rt-content .keycap{border-style:solid;border-width:1px;border-color:#000;padding:1px}#sbo-rt-content span.gray50{color:#7F7F7F;}#sbo-rt-content h1,#sbo-rt-content div.toc-title,#sbo-rt-content h2,#sbo-rt-content h3,#sbo-rt-content h4,#sbo-rt-content h5{-webkit-hyphens:none;hyphens:none;adobe-hyphenate:none;font-weight:bold;text-align:left;page-break-after:avoid !important;font-family:sans-serif,"DejaVuSans"}#sbo-rt-content div.toc-title{font-size:1.5em;margin-top:20px !important;margin-bottom:30px !important}#sbo-rt-content section[data-type="sect1"] h1{font-size:1.3em;color:#8e0012;margin:40px 0 8px 0}#sbo-rt-content section[data-type="sect2"] h2{font-size:1.1em;margin:30px 0 8px 0 !important}#sbo-rt-content section[data-type="sect3"] h3{font-size:1em;color:#555;margin:20px 0 8px 0 !important}#sbo-rt-content section[data-type="sect4"] h4{font-size:1em;font-weight:normal;font-style:italic;margin:15px 0 6px 0 !important}#sbo-rt-content section[data-type="chapter"]>div>h1,#sbo-rt-content section[data-type="preface"]>div>h1,#sbo-rt-content section[data-type="appendix"]>div>h1,#sbo-rt-content section[data-type="glossary"]>div>h1,#sbo-rt-content section[data-type="bibliography"]>div>h1,#sbo-rt-content section[data-type="index"]>div>h1{font-size:2em;line-height:1;margin-bottom:50px;color:#000;padding-bottom:10px;border-bottom:1px solid #000}#sbo-rt-content span.label,#sbo-rt-content span.keep-together{font-size:inherit;font-weight:inherit}#sbo-rt-content div[data-type="part"] h1{font-size:2em;text-align:center;margin-top:0 !important;margin-bottom:50px;padding:50px 0 10px 0;border-bottom:1px solid #000}#sbo-rt-content img.width-ninety{width:90%}#sbo-rt-content img{max-width:95%;margin:0 auto;padding:0}#sbo-rt-content div.figure{background-color:transparent;text-align:center !important;margin:15px 0 15px 0 !important;page-break-inside:avoid}#sbo-rt-content figure{margin:15px 0 15px 0 !important;page-break-inside:avoid}#sbo-rt-content div.figure h6,#sbo-rt-content figure h6,#sbo-rt-content figure figcaption{font-size:.9rem !important;text-align:center;font-weight:normal !important;font-style:italic;font-family:serif !important;text-transform:none !important;letter-spacing:normal !important;color:#000 !important;padding-top:10px !important;page-break-before:avoid}#sbo-rt-content div.informalfigure{text-align:center !important;padding:5px 0 !important}#sbo-rt-content div.sidebar{margin:15px 0 10px 0 !important;border:1px solid #DCDCDC;background-color:#F7F7F7;padding:15px !important;page-break-inside:avoid}#sbo-rt-content aside[data-type="sidebar"]{margin:15px 0 10px 0 !important;page-break-inside:avoid}#sbo-rt-content div.sidebar-title,#sbo-rt-content aside[data-type="sidebar"] h5{font-weight:bold;font-size:1em;font-family:sans-serif;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:4px 0 6px 0 !important;page-break-inside:avoid}#sbo-rt-content div.sidebar ol,#sbo-rt-content div.sidebar ul,#sbo-rt-content aside[data-type="sidebar"] ol,#sbo-rt-content aside[data-type="sidebar"] ul{margin-left:1.25em !important}#sbo-rt-content div.sidebar div.figure p.title,#sbo-rt-content aside[data-type="sidebar"] figcaption,#sbo-rt-content div.sidebar div.informalfigure div.caption{font-size:90%;text-align:center;font-weight:normal;font-style:italic;font-family:serif !important;color:#000;padding:5px !important;page-break-before:avoid;page-break-after:avoid}#sbo-rt-content div.sidebar div.tip,#sbo-rt-content div.sidebar div[data-type="tip"],#sbo-rt-content div.sidebar div.note,#sbo-rt-content div.sidebar div[data-type="note"],#sbo-rt-content div.sidebar div.warning,#sbo-rt-content div.sidebar div[data-type="warning"],#sbo-rt-content div.sidebar div[data-type="caution"],#sbo-rt-content div.sidebar div[data-type="important"]{margin:20px auto 20px auto !important;font-size:90%;width:85%}#sbo-rt-content aside[data-type="sidebar"] p.byline{font-size:90%;font-weight:bold;font-style:italic;text-align:center;text-indent:0;margin:5px auto 6px;page-break-after:avoid}#sbo-rt-content pre{white-space:pre-wrap;font-family:"Ubuntu Mono",monospace;margin:25px 0 25px 20px;font-size:85%;display:block;-webkit-hyphens:none;hyphens:none;adobe-hyphenate:none;overflow-wrap:break-word}#sbo-rt-content div.note pre.programlisting,#sbo-rt-content div.tip pre.programlisting,#sbo-rt-content div.warning pre.programlisting,#sbo-rt-content div.caution pre.programlisting,#sbo-rt-content div.important pre.programlisting{margin-bottom:0}#sbo-rt-content code{font-family:"Ubuntu Mono",monospace;-webkit-hyphens:none;hyphens:none;adobe-hyphenate:none;overflow-wrap:break-word}#sbo-rt-content code strong em,#sbo-rt-content code em strong,#sbo-rt-content pre em strong,#sbo-rt-content pre strong em,#sbo-rt-content strong code em code,#sbo-rt-content em code strong code,#sbo-rt-content span.bolditalic code{font-weight:bold;font-style:italic;font-family:"Ubuntu Mono BoldItal",monospace}#sbo-rt-content code em,#sbo-rt-content em code,#sbo-rt-content pre em,#sbo-rt-content em.replaceable{font-family:"Ubuntu Mono Ital",monospace;font-style:italic}#sbo-rt-content code strong,#sbo-rt-content strong code,#sbo-rt-content pre strong,#sbo-rt-content strong.userinput{font-family:"Ubuntu Mono Bold",monospace;font-weight:bold}#sbo-rt-content div[data-type="example"]{margin:10px 0 15px 0 !important}#sbo-rt-content div[data-type="example"] h1,#sbo-rt-content div[data-type="example"] h2,#sbo-rt-content div[data-type="example"] h3,#sbo-rt-content div[data-type="example"] h4,#sbo-rt-content div[data-type="example"] h5,#sbo-rt-content div[data-type="example"] h6{font-style:italic;font-weight:normal;text-align:left !important;text-transform:none !important;font-family:serif !important;margin:10px 0 5px 0 !important;border-bottom:1px solid #000}#sbo-rt-content li pre.example{padding:10px 0 !important}#sbo-rt-content div[data-type="example"] pre[data-type="programlisting"],#sbo-rt-content div[data-type="example"] pre[data-type="screen"]{margin:0}#sbo-rt-content section[data-type="titlepage"]>div>h1{font-size:2em;margin:50px 0 10px 0 !important;line-height:1;text-align:center}#sbo-rt-content section[data-type="titlepage"] h2,#sbo-rt-content section[data-type="titlepage"] p.subtitle,#sbo-rt-content section[data-type="titlepage"] p[data-type="subtitle"]{font-size:1.3em;font-weight:normal;text-align:center;margin-top:.5em;color:#555}#sbo-rt-content section[data-type="titlepage"]>div>h2[data-type="author"],#sbo-rt-content section[data-type="titlepage"] p.author{font-size:1.3em;font-family:serif !important;font-weight:bold;margin:50px 0 !important;text-align:center}#sbo-rt-content section[data-type="titlepage"] p.edition{text-align:center;text-transform:uppercase;margin-top:2em}#sbo-rt-content section[data-type="titlepage"]{text-align:center}#sbo-rt-content section[data-type="titlepage"]:after{content:url(css_assets/titlepage_footer_ebook.png);margin:0 auto;max-width:80%}#sbo-rt-content div.book div.titlepage div.publishername{margin-top:60%;margin-bottom:20px;text-align:center;font-size:1.25em}#sbo-rt-content div.book div.titlepage div.locations p{margin:0;text-align:center}#sbo-rt-content div.book div.titlepage div.locations p.cities{font-size:80%;text-align:center;margin-top:5px}#sbo-rt-content section.preface[title="Dedication"]>div.titlepage h2.title{text-align:center;text-transform:uppercase;font-size:1.5em;margin-top:50px;margin-bottom:50px}#sbo-rt-content ul.stafflist{margin:15px 0 15px 20px !important}#sbo-rt-content ul.stafflist li{list-style-type:none;padding:5px 0}#sbo-rt-content ul.printings li{list-style-type:none}#sbo-rt-content section.preface[title="Dedication"] p{font-style:italic;text-align:center}#sbo-rt-content div.colophon h1.title{font-size:1.3em;margin:0 !important;font-family:serif !important;font-weight:normal}#sbo-rt-content div.colophon h2.subtitle{margin:0 !important;color:#000;font-family:serif !important;font-size:1em;font-weight:normal}#sbo-rt-content div.colophon div.author h3.author{font-size:1.1em;font-family:serif !important;margin:10px 0 0 !important;font-weight:normal}#sbo-rt-content div.colophon div.editor h4,#sbo-rt-content div.colophon div.editor h3.editor{color:#000;font-size:.8em;margin:15px 0 0 !important;font-family:serif !important;font-weight:normal}#sbo-rt-content div.colophon div.editor h3.editor{font-size:.8em;margin:0 !important;font-family:serif !important;font-weight:normal}#sbo-rt-content div.colophon div.publisher{margin-top:10px}#sbo-rt-content div.colophon div.publisher p,#sbo-rt-content div.colophon div.publisher span.publishername{margin:0;font-size:.8em}#sbo-rt-content div.legalnotice p,#sbo-rt-content div.timestamp p{font-size:.8em}#sbo-rt-content div.timestamp p{margin-top:10px}#sbo-rt-content div.colophon[title="About the Author"] h1.title,#sbo-rt-content div.colophon[title="Colophon"] h1.title{font-size:1.5em;margin:0 !important;font-family:sans-serif !important}#sbo-rt-content section.chapter div.titlepage div.author{margin:10px 0 10px 0}#sbo-rt-content section.chapter div.titlepage div.author div.affiliation{font-style:italic}#sbo-rt-content div.attribution{margin:5px 0 0 50px !important}#sbo-rt-content h3.author span.orgname{display:none}#sbo-rt-content div.epigraph{margin:10px 0 10px 20px !important;page-break-inside:avoid;font-size:90%}#sbo-rt-content div.epigraph p{font-style:italic}#sbo-rt-content blockquote,#sbo-rt-content div.blockquote{margin:10px !important;page-break-inside:avoid;font-size:95%}#sbo-rt-content blockquote p,#sbo-rt-content div.blockquote p{font-style:italic;margin:.75em 0 0 !important}#sbo-rt-content blockquote div.attribution,#sbo-rt-content blockquote p[data-type="attribution"]{margin:5px 0 10px 30px !important;text-align:right;width:80%}#sbo-rt-content blockquote div.attribution p,#sbo-rt-content blockquote p[data-type="attribution"]{font-style:normal;margin-top:5px}#sbo-rt-content blockquote div.attribution p:before,#sbo-rt-content blockquote p[data-type="attribution"]:before{font-style:normal;content:"—";-webkit-hyphens:none;hyphens:none;adobe-hyphenate:none}#sbo-rt-content p.right{text-align:right;margin:0}#sbo-rt-content div[data-type="footnotes"]{border-top:1px solid black;margin-top:2em}#sbo-rt-content sub,#sbo-rt-content sup{font-size:75%;line-height:0;position:relative}#sbo-rt-content sup{top:-.5em}#sbo-rt-content sub{bottom:-.25em}#sbo-rt-content p[data-type="footnote"]{font-size:90% !important;line-height:1.2em !important;margin-left:2.5em !important;text-indent:-2.3em !important}#sbo-rt-content p[data-type="footnote"] sup{display:inline-block !important;position:static !important;width:2em !important;text-align:right !important;font-size:100% !important;padding-right:.5em !important}#sbo-rt-content p[data-type="footnote"] a[href$="-marker"]{font-family:sans-serif !important;font-size:90% !important;color:#8e0012 !important}#sbo-rt-content p[data-type="footnote"] a[data-type="xref"]{margin:0 !important;padding:0 !important;text-indent:0 !important}#sbo-rt-content a[data-type="noteref"]{font-family:sans-serif !important;color:#8e0012;margin-left:0;padding-left:0}#sbo-rt-content div.refentry p.refname{font-size:1em;font-family:sans-serif,"DejaVuSans";font-weight:bold;margin-bottom:5px;overflow:auto;width:100%}#sbo-rt-content div.refentry{width:100%;display:block;margin-top:2em}#sbo-rt-content div.refsynopsisdiv{display:block;clear:both}#sbo-rt-content div.refentry header{page-break-inside:avoid !important;display:block;break-inside:avoid !important;padding-top:0;border-bottom:1px solid #000}#sbo-rt-content div.refsect1 h6{font-size:.9em;font-family:sans-serif,"DejaVuSans";font-weight:bold}#sbo-rt-content div.refsect1{margin-top:3em}#sbo-rt-content dt{padding-top:10px !important;padding-bottom:0 !important}#sbo-rt-content dd{margin-left:1.5em !important;margin-bottom:.25em}#sbo-rt-content dd ol,#sbo-rt-content dd ul{padding-left:1em}#sbo-rt-content dd li{margin-top:0;margin-bottom:0}#sbo-rt-content dd,#sbo-rt-content li{text-align:left}#sbo-rt-content ul,#sbo-rt-content ul>li,#sbo-rt-content ol ul,#sbo-rt-content ol ul>li,#sbo-rt-content ul ol ul,#sbo-rt-content ul ol ul>li{list-style-type:disc}#sbo-rt-content ul ul,#sbo-rt-content ul ul>li{list-style-type:square}#sbo-rt-content ul ul ul,#sbo-rt-content ul ul ul>li{list-style-type:circle}#sbo-rt-content ol,#sbo-rt-content ol>li,#sbo-rt-content ol ul ol,#sbo-rt-content ol ul ol>li,#sbo-rt-content ul ol,#sbo-rt-content ul ol>li{list-style-type:decimal}#sbo-rt-content ol ol,#sbo-rt-content ol ol>li{list-style-type:lower-alpha}#sbo-rt-content ol ol ol,#sbo-rt-content ol ol ol>li{list-style-type:lower-roman}#sbo-rt-content ol,#sbo-rt-content ul{list-style-position:outside;margin:15px 0 15px 1.25em;padding-left:2.25em}#sbo-rt-content ol li,#sbo-rt-content ul li{margin:.5em 0 .65em;line-height:125%}#sbo-rt-content div.orderedlistalpha{list-style-type:upper-alpha}#sbo-rt-content table.simplelist,#sbo-rt-content ul.simplelist{margin:15px 0 15px 20px !important}#sbo-rt-content ul.simplelist li{list-style-type:none;padding:5px 0}#sbo-rt-content table.simplelist td{border:none}#sbo-rt-content table.simplelist tr{border-bottom:none}#sbo-rt-content table.simplelist tr:nth-of-type(even){background-color:transparent}#sbo-rt-content dl.calloutlist p:first-child{margin-top:-25px !important}#sbo-rt-content dl.calloutlist dd{padding-left:0;margin-top:-25px}#sbo-rt-content dl.calloutlist img,#sbo-rt-content a.co img{padding:0}#sbo-rt-content div.toc ol{margin-top:8px !important;margin-bottom:8px !important;margin-left:0 !important;padding-left:0 !important}#sbo-rt-content div.toc ol ol{margin-left:30px !important;padding-left:0 !important}#sbo-rt-content div.toc ol li{list-style-type:none}#sbo-rt-content div.toc a{color:#8e0012}#sbo-rt-content div.toc ol a{font-size:1em;font-weight:bold}#sbo-rt-content div.toc ol>li>ol a{font-weight:bold;font-size:1em}#sbo-rt-content div.toc ol>li>ol>li>ol a{text-decoration:none;font-weight:normal;font-size:1em}#sbo-rt-content div.tip,#sbo-rt-content div[data-type="tip"],#sbo-rt-content div.note,#sbo-rt-content div[data-type="note"],#sbo-rt-content div.warning,#sbo-rt-content div[data-type="warning"],#sbo-rt-content div[data-type="caution"],#sbo-rt-content div[data-type="important"]{margin:30px !important;font-size:90%;padding:10px 8px 20px 8px !important;page-break-inside:avoid}#sbo-rt-content div.tip ol,#sbo-rt-content div.tip ul,#sbo-rt-content div[data-type="tip"] ol,#sbo-rt-content div[data-type="tip"] ul,#sbo-rt-content div.note ol,#sbo-rt-content div.note ul,#sbo-rt-content div[data-type="note"] ol,#sbo-rt-content div[data-type="note"] ul,#sbo-rt-content div.warning ol,#sbo-rt-content div.warning ul,#sbo-rt-content div[data-type="warning"] ol,#sbo-rt-content div[data-type="warning"] ul,#sbo-rt-content div[data-type="caution"] ol,#sbo-rt-content div[data-type="caution"] ul,#sbo-rt-content div[data-type="important"] ol,#sbo-rt-content div[data-type="important"] ul{margin-left:1.5em !important}#sbo-rt-content div.tip,#sbo-rt-content div[data-type="tip"],#sbo-rt-content div.note,#sbo-rt-content div[data-type="note"]{border:1px solid #BEBEBE;background-color:transparent}#sbo-rt-content div.warning,#sbo-rt-content div[data-type="warning"],#sbo-rt-content div[data-type="caution"],#sbo-rt-content div[data-type="important"]{border:1px solid #BC8F8F}#sbo-rt-content div.tip h3,#sbo-rt-content div[data-type="tip"] h6,#sbo-rt-content div[data-type="tip"] h1,#sbo-rt-content div.note h3,#sbo-rt-content div[data-type="note"] h6,#sbo-rt-content div[data-type="note"] h1,#sbo-rt-content div.warning h3,#sbo-rt-content div[data-type="warning"] h6,#sbo-rt-content div[data-type="warning"] h1,#sbo-rt-content div[data-type="caution"] h6,#sbo-rt-content div[data-type="caution"] h1,#sbo-rt-content div[data-type="important"] h1,#sbo-rt-content div[data-type="important"] h6{font-weight:bold;font-size:110%;font-family:sans-serif !important;text-transform:uppercase;letter-spacing:1px;text-align:center;margin:4px 0 6px !important}#sbo-rt-content div[data-type="tip"] figure h6,#sbo-rt-content div[data-type="note"] figure h6,#sbo-rt-content div[data-type="warning"] figure h6,#sbo-rt-content div[data-type="caution"] figure h6,#sbo-rt-content div[data-type="important"] figure h6{font-family:serif !important}#sbo-rt-content div.tip h3,#sbo-rt-content div[data-type="tip"] h6,#sbo-rt-content div.note h3,#sbo-rt-content div[data-type="note"] h6,#sbo-rt-content div[data-type="tip"] h1,#sbo-rt-content div[data-type="note"] h1{color:#737373}#sbo-rt-content div.warning h3,#sbo-rt-content div[data-type="warning"] h6,#sbo-rt-content div[data-type="caution"] h6,#sbo-rt-content div[data-type="important"] h6,#sbo-rt-content div[data-type="warning"] h1,#sbo-rt-content div[data-type="caution"] h1,#sbo-rt-content div[data-type="important"] h1{color:#C67171}#sbo-rt-content div.sect1[title="Safari® Books Online"] div.note,#sbo-rt-content div.safarienabled{background-color:transparent;margin:8px 0 0 !important;border:0 solid #BEBEBE;font-size:100%;padding:0 !important;page-break-inside:avoid}#sbo-rt-content div.sect1[title="Safari® Books Online"] div.note h3,#sbo-rt-content div.safarienabled h6{display:none}#sbo-rt-content div.table,#sbo-rt-content table{margin:15px 0 30px 0 !important;max-width:95%;border:none !important;background:none;display:table !important}#sbo-rt-content div.table,#sbo-rt-content div.informaltable,#sbo-rt-content table{page-break-inside:avoid}#sbo-rt-content tr,#sbo-rt-content tr td{border-bottom:1px solid #c3c3c3}#sbo-rt-content thead td,#sbo-rt-content thead th{border-bottom:#9d9d9d 1px solid !important;border-top:#9d9d9d 1px solid !important}#sbo-rt-content tr:nth-of-type(even){background-color:#f1f6fc}#sbo-rt-content thead{font-family:sans-serif;font-weight:bold}#sbo-rt-content td,#sbo-rt-content th{display:table-cell;padding:.3em;text-align:left;vertical-align:middle;font-size:80%}#sbo-rt-content div.informaltable table{margin:10px auto !important}#sbo-rt-content div.informaltable table tr{border-bottom:none}#sbo-rt-content div.informaltable table tr:nth-of-type(even){background-color:transparent}#sbo-rt-content div.informaltable td,#sbo-rt-content div.informaltable th{border:#9d9d9d 1px solid}#sbo-rt-content div.table-title,#sbo-rt-content table caption{font-weight:normal;font-style:italic;font-family:serif;font-size:1em;margin:10px 0 10px 0 !important;padding:0;page-break-after:avoid;text-align:left !important}#sbo-rt-content table code{font-size:smaller}#sbo-rt-content table.border tbody>tr:last-child>td{border-bottom:transparent}#sbo-rt-content div.equation,#sbo-rt-content div[data-type="equation"]{margin:10px 0 15px 0 !important}#sbo-rt-content div.equation-title,#sbo-rt-content div[data-type="equation"] h5{font-style:italic;font-weight:normal;font-family:serif !important;font-size:90%;margin:20px 0 10px 0 !important;page-break-after:avoid}#sbo-rt-content div.equation-contents{margin-left:20px}#sbo-rt-content div[data-type="equation"] math{font-size:calc(.35em + 1vw)}#sbo-rt-content span.inlinemediaobject{height:.85em;display:inline-block;margin-bottom:.2em}#sbo-rt-content span.inlinemediaobject img{margin:0;height:.85em}#sbo-rt-content div.informalequation{margin:20px 0 20px 20px;width:75%}#sbo-rt-content div.informalequation img{width:75%}#sbo-rt-content div.index{text-indent:0}#sbo-rt-content div.index h3{padding:.25em;margin-top:1em !important;background-color:#F0F0F0}#sbo-rt-content div.index li{line-height:130%;list-style-type:none}#sbo-rt-content div.index a.indexterm{color:#8e0012 !important}#sbo-rt-content div.index ul{margin-left:0 !important;padding-left:0 !important}#sbo-rt-content div.index ul ul{margin-left:1em !important;margin-top:0 !important}#sbo-rt-content code.boolean,#sbo-rt-content .navy{color:rgb(0,0,128);}#sbo-rt-content code.character,#sbo-rt-content .olive{color:rgb(128,128,0);}#sbo-rt-content code.comment,#sbo-rt-content .blue{color:rgb(0,0,255);}#sbo-rt-content code.conditional,#sbo-rt-content .limegreen{color:rgb(50,205,50);}#sbo-rt-content code.constant,#sbo-rt-content .darkorange{color:rgb(255,140,0);}#sbo-rt-content code.debug,#sbo-rt-content .darkred{color:rgb(139,0,0);}#sbo-rt-content code.define,#sbo-rt-content .darkgoldenrod,#sbo-rt-content .gold{color:rgb(184,134,11);}#sbo-rt-content code.delimiter,#sbo-rt-content .dimgray{color:rgb(105,105,105);}#sbo-rt-content code.error,#sbo-rt-content .red{color:rgb(255,0,0);}#sbo-rt-content code.exception,#sbo-rt-content .salmon{color:rgb(250,128,11);}#sbo-rt-content code.float,#sbo-rt-content .steelblue{color:rgb(70,130,180);}#sbo-rt-content pre code.function,#sbo-rt-content .green{color:rgb(0,128,0);}#sbo-rt-content code.identifier,#sbo-rt-content .royalblue{color:rgb(65,105,225);}#sbo-rt-content code.ignore,#sbo-rt-content .gray{color:rgb(128,128,128);}#sbo-rt-content code.include,#sbo-rt-content .purple{color:rgb(128,0,128);}#sbo-rt-content code.keyword,#sbo-rt-content .sienna{color:rgb(160,82,45);}#sbo-rt-content code.label,#sbo-rt-content .deeppink{color:rgb(255,20,147);}#sbo-rt-content code.macro,#sbo-rt-content .orangered{color:rgb(255,69,0);}#sbo-rt-content code.number,#sbo-rt-content .brown{color:rgb(165,42,42);}#sbo-rt-content code.operator,#sbo-rt-content .black{color:#000;}#sbo-rt-content code.preCondit,#sbo-rt-content .teal{color:rgb(0,128,128);}#sbo-rt-content code.preProc,#sbo-rt-content .fuschia{color:rgb(255,0,255);}#sbo-rt-content code.repeat,#sbo-rt-content .indigo{color:rgb(75,0,130);}#sbo-rt-content code.special,#sbo-rt-content .saddlebrown{color:rgb(139,69,19);}#sbo-rt-content code.specialchar,#sbo-rt-content .magenta{color:rgb(255,0,255);}#sbo-rt-content code.specialcomment,#sbo-rt-content .seagreen{color:rgb(46,139,87);}#sbo-rt-content code.statement,#sbo-rt-content .forestgreen{color:rgb(34,139,34);}#sbo-rt-content code.storageclass,#sbo-rt-content .plum{color:rgb(221,160,221);}#sbo-rt-content code.string,#sbo-rt-content .darkred{color:rgb(139,0,0);}#sbo-rt-content code.structure,#sbo-rt-content .chocolate{color:rgb(210,106,30);}#sbo-rt-content code.tag,#sbo-rt-content .darkcyan{color:rgb(0,139,139);}#sbo-rt-content code.todo,#sbo-rt-content .black{color:#000;}#sbo-rt-content code.type,#sbo-rt-content .mediumslateblue{color:rgb(123,104,238);}#sbo-rt-content code.typedef,#sbo-rt-content .darkgreen{color:rgb(0,100,0);}#sbo-rt-content code.underlined{text-decoration:underline;}#sbo-rt-content pre code.hll{background-color:#ffc}#sbo-rt-content pre code.c{color:#09F;font-style:italic}#sbo-rt-content pre code.err{color:#A00}#sbo-rt-content pre code.k{color:#069;font-weight:bold}#sbo-rt-content pre code.o{color:#555}#sbo-rt-content pre code.cm{color:#35586C;font-style:italic}#sbo-rt-content pre code.cp{color:#099}#sbo-rt-content pre code.c1{color:#35586C;font-style:italic}#sbo-rt-content pre code.cs{color:#35586C;font-weight:bold;font-style:italic}#sbo-rt-content pre code.gd{background-color:#FCC}#sbo-rt-content pre code.ge{font-style:italic}#sbo-rt-content pre code.gr{color:#F00}#sbo-rt-content pre code.gh{color:#030;font-weight:bold}#sbo-rt-content pre code.gi{background-color:#CFC}#sbo-rt-content pre code.go{color:#000}#sbo-rt-content pre code.gp{color:#009;font-weight:bold}#sbo-rt-content pre code.gs{font-weight:bold}#sbo-rt-content pre code.gu{color:#030;font-weight:bold}#sbo-rt-content pre code.gt{color:#9C6}#sbo-rt-content pre code.kc{color:#069;font-weight:bold}#sbo-rt-content pre code.kd{color:#069;font-weight:bold}#sbo-rt-content pre code.kn{color:#069;font-weight:bold}#sbo-rt-content pre code.kp{color:#069}#sbo-rt-content pre code.kr{color:#069;font-weight:bold}#sbo-rt-content pre code.kt{color:#078;font-weight:bold}#sbo-rt-content pre code.m{color:#F60}#sbo-rt-content pre code.s{color:#C30}#sbo-rt-content pre code.na{color:#309}#sbo-rt-content pre code.nb{color:#366}#sbo-rt-content pre code.nc{color:#0A8;font-weight:bold}#sbo-rt-content pre code.no{color:#360}#sbo-rt-content pre code.nd{color:#99F}#sbo-rt-content pre code.ni{color:#999;font-weight:bold}#sbo-rt-content pre code.ne{color:#C00;font-weight:bold}#sbo-rt-content pre code.nf{color:#C0F}#sbo-rt-content pre code.nl{color:#99F}#sbo-rt-content pre code.nn{color:#0CF;font-weight:bold}#sbo-rt-content pre code.nt{color:#309;font-weight:bold}#sbo-rt-content pre code.nv{color:#033}#sbo-rt-content pre code.ow{color:#000;font-weight:bold}#sbo-rt-content pre code.w{color:#bbb}#sbo-rt-content pre code.mf{color:#F60}#sbo-rt-content pre code.mh{color:#F60}#sbo-rt-content pre code.mi{color:#F60}#sbo-rt-content pre code.mo{color:#F60}#sbo-rt-content pre code.sb{color:#C30}#sbo-rt-content pre code.sc{color:#C30}#sbo-rt-content pre code.sd{color:#C30;font-style:italic}#sbo-rt-content pre code.s2{color:#C30}#sbo-rt-content pre code.se{color:#C30;font-weight:bold}#sbo-rt-content pre code.sh{color:#C30}#sbo-rt-content pre code.si{color:#A00}#sbo-rt-content pre code.sx{color:#C30}#sbo-rt-content pre code.sr{color:#3AA}#sbo-rt-content pre code.s1{color:#C30}#sbo-rt-content pre code.ss{color:#A60}#sbo-rt-content pre code.bp{color:#366}#sbo-rt-content pre code.vc{color:#033}#sbo-rt-content pre code.vg{color:#033}#sbo-rt-content pre code.vi{color:#033}#sbo-rt-content pre code.il{color:#F60}#sbo-rt-content pre code.g{color:#050}#sbo-rt-content pre code.l{color:#C60}#sbo-rt-content pre code.l{color:#F90}#sbo-rt-content pre code.n{color:#008}#sbo-rt-content pre code.nx{color:#008}#sbo-rt-content pre code.py{color:#96F}#sbo-rt-content pre code.p{color:#000}#sbo-rt-content pre code.x{color:#F06}#sbo-rt-content div.blockquote_sampler_toc{width:95%;margin:5px 5px 5px 10px !important}#sbo-rt-content div{font-family:serif;text-align:left}#sbo-rt-content .gray-background,#sbo-rt-content .reverse-video{background:#2E2E2E;color:#FFF}#sbo-rt-content .light-gray-background{background:#A0A0A0}#sbo-rt-content .preserve-whitespace{white-space:pre-wrap}#sbo-rt-content span.gray{color:#4C4C4C}#sbo-rt-content .width-10{width:10vw !important}#sbo-rt-content .width-20{width:20vw !important}#sbo-rt-content .width-30{width:30vw !important}#sbo-rt-content .width-40{width:40vw !important}#sbo-rt-content .width-50{width:50vw !important}#sbo-rt-content .width-60{width:60vw !important}#sbo-rt-content .width-70{width:70vw !important}#sbo-rt-content .width-80{width:80vw !important}#sbo-rt-content .width-90{width:90vw !important}#sbo-rt-content .width-full,#sbo-rt-content .width-100{width:100vw !important}
+    </style><script id="twitter-wjs" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/widgets.js.download"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/cool-2.1.15.min.js.download"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/ec.js.download"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/2508.js.download"></script><script src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/443792972845831" async=""></script><script src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/1732687426968531" async=""></script><script async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/fbevents.js.download"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/f.txt"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/analytics.js.download"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/bat.js.download"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/f.txt"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/insight.min.js.download"></script><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/f.txt"></script><script crossorigin="anonymous" integrity="sha256-o+Mjw9liPATZ4a0GQIxJUP7oWkeGw63cQfsvwHlamKs=" type="text/javascript" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/appcues.main.41d0974ece64f3bd60706363affda4fa570e78fa.js.download" async=""></script><script async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/gtm.js.download"></script><script> // <![CDATA[
+    var g = {
+      position_cache: {
+        
+          "chapter": "/api/v1/book/9781449369880/chapter/ch06.html",
+          "book_id": "9781449369880",
+          "chapter_uri": "ch06.html",
+          "position": 0,
+          "user_uuid": "d5ff66c5-8631-4846-a88c-12cdf17d9449",
+          "next_chapter_uri": "/library/view/introduction-to-machine/9781449369880/ch07.html"
+        
+      },
+      title: "Introduction to Machine Learning with Python",
+      author_list: "Andreas C. Müller, Sarah Guido",
+      format: "book",
+      source: "application/epub+zip",
+      is_system_book: true,
+      is_public: false,
+      loaded_from_server: true,
+      allow_scripts: false,
+      has_mathml: true
+    };
+    // ]]></script><script src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/modernizr.8e35451ddb64.js.download"></script><script>
+    
+      
+
+      
+        
+          window.PUBLIC_ANNOTATIONS = true;
+        
+      
+
+      window.MOBILE_PUBLIC_ANNOTATIONS = false;
+
+    
+
+    
+      window.PRIVACY_CONTROL_OVERRIDE = false;
+    
+
+      window.PRIVACY_CONTROL_SWITCH = true;
+
+      window.PUBLISHER_PAGES = true;
+
+      window.SBO = {
+        "constants": {
+          "SITB_ENDPOINT": "/api/v2/sitb/",
+          "SEARCH_SELECT_ENDPOINT": "https://learning.oreilly.com/api/v2/search/select/",
+          "ENABLE_ONLINE_TRAINING": true
+        }
+      };
+  </script><link rel="canonical" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html"><meta name="description" content=" Chapter 6. Algorithm Chains and Pipelines For many machine learning algorithms, the particular representation of the data that you provide is very important, as we discussed in Chapter 4. This ... "><meta property="og:title" content="6. Algorithm Chains and Pipelines"><meta itemprop="isPartOf" content="/library/view/introduction-to-machine/9781449369880/"><meta itemprop="name" content="6. Algorithm Chains and Pipelines"><meta property="og:url" itemprop="url" content="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html"><meta property="og:site_name" content="Safari"><meta property="og:image" itemprop="thumbnailUrl" content="https://learning.oreilly.com/library/cover/9781449369880/"><meta property="og:description" itemprop="description" content=" Chapter 6. Algorithm Chains and Pipelines For many machine learning algorithms, the particular representation of the data that you provide is very important, as we discussed in Chapter 4. This ... "><meta itemprop="inLanguage" content="en"><meta itemprop="publisher" content="O&#39;Reilly Media, Inc."><meta property="og:type" content="book"><meta property="og:book:isbn" itemprop="isbn" content="9781449369415"><meta property="og:book:author" itemprop="author" content="Andreas C. Müller"><meta property="og:book:author" itemprop="author" content="Sarah Guido"><meta name="twitter:card" content="summary"><meta name="twitter:site" content="@OReillyMedia"><style type="text/css" id="font-styles" data-template="#sbo-rt-content, #sbo-rt-content p, #sbo-rt-content div { font-size: &lt;%= font_size %&gt; !important; }"></style><style type="text/css" id="font-family" data-template="#sbo-rt-content, #sbo-rt-content p, #sbo-rt-content div { font-family: &lt;%= font_family %&gt; !important; }"></style><style type="text/css" id="column-width" data-template="#sbo-rt-content { max-width: &lt;%= column_width %&gt;% !important; margin: 0 auto !important; }"></style><noscript><meta http-equiv="refresh" content="0; url=/library/no-js/" /></noscript><script>
+    var dataLayer = window.dataLayer || [];
+
+    
+      window.medalliaVsgUserIdentifier = 'd5ff66c5-8631-4846-a88c-12cdf17d9449';
+      dataLayer.push({userIdentifier: 'd5ff66c5-8631-4846-a88c-12cdf17d9449'});
+      dataLayer.push({loggedIn: 'yes'});
+
+      
+        window.medalliaVsgAccountIdentifier = 'f2443831-3c8e-46c4-8bc3-f596da95b62a';
+        
+        dataLayer.push({orgID: 'f2443831-3c8e-46c4-8bc3-f596da95b62a'});
+        
+
+        window.medalliaVsgIsIndividual = false;
+        
+          
+          dataLayer.push({learningAccountType: 'enterprise'});
+          
+        
+
+        
+          dataLayer.push({learningPaidAccount: 'yes'});
+        
+      
+    
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5P4V6Z');
+    (function () {
+      var VERSION = 'V1.1';
+      var AUTHOR = 'Awwad';
+      if (!window.GtmHelper)
+        window.GtmHelper = function () {
+          var instance = this;
+          var loc = document.location;
+          this.version = VERSION;
+          this.author = AUTHOR;
+          this.readCookie = function (name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+          };
+          this.createCookie = function (name, value, days, cookieDomain) {
+            var domain = "";
+            var expires = "";
+
+            if (days) {
+              var date = new Date();
+              date.setTime(date.getTime() + Math.ceil(days * 24 * 60 * 60 * 1000));
+              var expires = " expires=" + date.toGMTString() + ";";
+            }
+
+            if (typeof (cookieDomain) != 'undefined')
+              domain = " domain=" + cookieDomain + "; ";
+
+            document.cookie = name + "=" + value + ";" + expires + domain + "path=/";
+          };
+
+          this.isDuplicated = function (currentTransactionId) {
+            // the previous transaction id:
+            var previousTransIdValue = this.readCookie("previousTransId");
+
+            if (currentTransactionId === previousTransIdValue) {
+              return true; // Duplication
+            } else {
+              return false;
+            }
+          };
+        }
+    })()
+  </script><script defer="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/vendor.a7a9eda718c8.js.download"></script><script defer="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/reader.c667e807a58e.js.download"></script><iframe src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/saved_resource.html"></iframe><iframe src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/saved_resource(2).html"></iframe><iframe src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/saved_resource(3).html"></iframe><link rel="stylesheet" type="text/css" integrity="sha256-hctLfvlZ8emTXS/qhJYvNsgEPsrj6H/vNYwDfHHqma4=" crossorigin="anonymous" href="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/container.41d0974ece64f3bd60706363affda4fa570e78fa.css"><iframe src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/saved_resource(4).html"></iframe><script src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/f(1).txt"></script><script src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/f(2).txt"></script><script async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/MathJax.js.download"></script><style id="annotator-dynamic-style">.annotator-adder, .annotator-outer, .annotator-notice {
+  z-index: 100019;
+}
+.annotator-filter {
+  z-index: 100009;
+}</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css" id="kampyleStyle">.noOutline{outline: none !important;}.wcagOutline:focus{outline: 1px dashed #595959 !important;outline-offset: 2px !important;transition: none !important;}</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+</style></head>
+
+
+<body class="reading sidenav nav-collapsed  scalefonts library"><div id="MathJax_Message" style="display: none;"></div>
+
+    
+  <noscript> 
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5P4V6Z"
+            height="0" width="0"
+            style="display:none;visibility:hidden">
+    </iframe>
+  </noscript>
+
+
+
+    
+      <div class="hide working" role="status">
+        <div class="working-image"></div>
+      </div>
+      <div class="sbo-site-nav">
+        
+
+  
+
+
+<a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#container" class="skip">Skip to content</a><header class="topbar t-topbar"><nav role="navigation" class="js-site-nav"><ul class="topnav"><li><a href="https://learning.oreilly.com/home/" class="l0 nav-icn"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M11.738 14H9.254v-3.676a.617.617 0 0 0-.621-.613H7.39a.617.617 0 0 0-.62.613V14H4.284a.617.617 0 0 1-.622-.613V10.22c0-.327.132-.64.367-.87l3.547-3.493a.627.627 0 0 1 .875 0l3.54 3.499c.234.229.366.54.367.864v3.167a.617.617 0 0 1-.62.613zM7.57 2.181a.625.625 0 0 1 .882 0l5.77 5.692-.93.92-5.28-5.209-5.28 5.208-.932-.919 5.77-5.692z"></path></svg><span>Home</span></a></li><li class="search"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" class="t-search-nav trigger nav-icn l0" data-dropdown-selector=".searchbox"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="20" height="20" version="1.1" fill="#4A3C31"><desc>search icon</desc><g stroke="none" stroke-width="1" fill-rule="evenodd"><path d="M31.3 0C20.9 0 12.5 8.4 12.5 18.8 12.5 22.5 13.6 25.9 15.4 28.8L1.2 42.9C-0.4 44.5-0.4 47.2 1.2 48.8 2 49.6 3.1 50 4.2 50 5.2 50 6.3 49.6 7.1 48.8L21.2 34.6C24.1 36.5 27.5 37.5 31.3 37.5 41.6 37.5 50 29.1 50 18.8 50 8.4 41.6 0 31.3 0ZM31.3 31.3C24.4 31.3 18.8 25.6 18.8 18.8 18.8 11.9 24.4 6.3 31.3 6.3 38.1 6.3 43.8 11.9 43.8 18.8 43.8 25.6 38.1 31.3 31.3 31.3Z"></path></g></svg><span>Search</span></a></li><li class="usermenu dropdown"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" class="trigger l0 nav-icn nav-dropdown"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" version="1.1" fill="#4A3C31"><desc>navigation arrow</desc><g stroke="none" stroke-width="1" fill-rule="evenodd"><path d="M0.1 12.5L9.7 3.1C9.8 3 9.9 3 10 3 10.1 3 10.2 3 10.3 3.1L19.9 12.5C20 12.5 20 12.6 20 12.8 20 12.9 20 13 19.9 13L17 15.9C16.9 16 16.8 16 16.7 16 16.5 16 16.4 16 16.4 15.9L10 9.7 3.6 15.9C3.6 16 3.5 16 3.3 16 3.2 16 3.1 16 3 15.9L0.1 13C0 12.9 0 12.8 0 12.7 0 12.7 0 12.6 0.1 12.5Z"></path></g></svg><span>Expand Nav</span></a><div class="drop-content"><ul><li class="flyout-parent"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" class="l1 nav-icn "><!--?xml version="1.0" encoding="UTF-8"?--><svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M8,8 C6.34321755,8 5.00013,6.65691245 5.00013,5.00013 C5.00013,3.34334755 6.34321755,2.00026001 8,2.00026001 C9.65678245,2.00026001 10.99987,3.34334755 10.99987,5.00013 C10.99987,6.65691245 9.65678245,8 8,8 Z M2.33024571,11.3523547 L2.33774538,11.3523547 C3.7622187,9.70968996 5.82947484,8.76608166 8.00374984,8.76608166 C10.1780248,8.76608166 12.245281,9.70968996 13.6697543,11.3523547 C13.8892083,11.6177474 14.0062813,11.9530021 13.99974,12.2973138 L13.99974,13.99974 L2.00026001,13.99974 L2.00026001,12.2973138 C1.99371867,11.9530021 2.11079172,11.6177474 2.33024571,11.3523547 Z" id="path-1"></path></svg><span>Your O'Reilly</span></a><ul class="flyout"><li><a href="https://learning.oreilly.com/profile/" class="l2 nav-icn"><span>Profile</span></a></li><li><a href="https://learning.oreilly.com/history/" class="l2 nav-icn"><span>History</span></a></li><li><a href="https://learning.oreilly.com/playlists/" class="l2 nav-icn"><span>Playlists</span></a></li><li><a href="https://learning.oreilly.com/u/d5ff66c5-8631-4846-a88c-12cdf17d9449/" class="l2 nav-icn"><span>Highlights</span></a></li></ul></li><li class="flyout-parent"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" class="l1 nav-icn "><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M11.564 2.263l2.172 2.174c.17.168.264.397.264.636V11a.6.6 0 0 1-.6.6h-.6V6.2h-6V2.6a.6.6 0 0 1 .6-.6h3.527c.239 0 .468.095.637.263zM2.6 14a.6.6 0 0 1-.6-.6V6.8a.6.6 0 0 1 .6-.6h1.903a1.2 1.2 0 0 1 .849.352L6.2 7.4H11a.6.6 0 0 1 .6.6v5.4a.6.6 0 0 1-.6.6H2.6zM11 5h1.8L11 3.2V5z"></path></svg><span>Featured</span></a><ul class="flyout"><li><a href="https://learning.oreilly.com/navigate-change/" class="l2 nav-icn"><span>Navigating Change</span></a></li><li><a href="https://learning.oreilly.com/featured/governing-change/" class="l2 nav-icn"><span>For Government</span></a></li><li><a href="https://learning.oreilly.com/recommendations/" class="l2 nav-icn"><span>Recommended</span></a></li></ul></li><li class="flyout-parent"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" class="l1 nav-icn "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="20" height="20" version="1.1" fill="#4A3C31"><desc>queue icon</desc><g stroke="none" stroke-width="1" fill-rule="evenodd"><path d="M25 29.2C25.4 29.2 25.8 29.1 26.1 28.9L48.7 16.8C49.5 16.4 50 15.5 50 14.6 50 13.7 49.5 12.8 48.7 12.4L26.1 0.3C25.4-0.1 24.6-0.1 23.9 0.3L1.3 12.4C0.5 12.8 0 13.7 0 14.6 0 15.5 0.5 16.4 1.3 16.8L23.9 28.9C24.2 29.1 24.6 29.2 25 29.2ZM7.3 14.6L25 5.2 42.7 14.6 25 24 7.3 14.6ZM48.7 22.4L47.7 21.9 25 34.2 2.3 21.9 1.3 22.4C0.5 22.9 0 23.7 0 24.7 0 25.6 0.5 26.5 1.3 26.9L23.9 39.3C24.2 39.5 24.6 39.6 25 39.6 25.4 39.6 25.8 39.5 26.1 39.3L48.7 26.9C49.5 26.5 50 25.6 50 24.7 50 23.7 49.5 22.9 48.7 22.4ZM48.7 32.8L47.7 32.3 25 44.6 2.3 32.3 1.3 32.8C0.5 33.3 0 34.1 0 35.1 0 36 0.5 36.9 1.3 37.3L23.9 49.7C24.2 49.9 24.6 50 25 50 25.4 50 25.8 49.9 26.1 49.7L48.7 37.3C49.5 36.9 50 36 50 35.1 50 34.1 49.5 33.3 48.7 32.8Z"></path></g></svg><span>Explore</span></a><ul class="flyout"><li><a href="https://learning.oreilly.com/topics/" class="l2 nav-icn"><span>All Topics</span></a></li><li><a href="https://learning.oreilly.com/search/?query=&amp;extended_publisher_data=true&amp;highlight=true&amp;include_assessments=false&amp;include_case_studies=true&amp;include_courses=true&amp;include_orioles=true&amp;include_playlists=true&amp;include_collections=true&amp;include_notebooks=true&amp;is_academic_institution_account=false&amp;source=user&amp;formats=book&amp;sort=publication_date&amp;facet_json=true&amp;page=0" class="l2 nav-icn"><span>Early Releases</span></a></li><li><a href="https://learning.oreilly.com/playlists/discover/" class="l2 nav-icn"><span>Shared Playlists</span></a></li><li><a href="https://learning.oreilly.com/search/?query=&amp;extended_publisher_data=true&amp;highlight=true&amp;include_assessments=false&amp;include_case_studies=true&amp;include_courses=true&amp;include_orioles=true&amp;include_playlists=true&amp;include_collections=true&amp;include_notebooks=true&amp;is_academic_institution_account=false&amp;source=user&amp;formats=book&amp;formats=case%20study&amp;formats=learning%20path&amp;formats=live%20online%20training&amp;formats=notebook&amp;formats=oriole&amp;formats=video&amp;sort=popularity&amp;facet_json=true&amp;page=0&amp;collection_type=expert" class="l2 nav-icn"><span>Most Popular Titles</span></a></li><li><a href="https://learning.oreilly.com/resource-centers/" class="l2 nav-icn"><span>Resource Centers</span></a></li></ul></li><li><a href="https://get.oreilly.com/email-signup.html" class="l1 nav-icn " target="&quot;_blank&quot;"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M11.564 2.263l2.172 2.174c.17.168.264.397.264.636V11a.6.6 0 0 1-.6.6h-.6V6.2h-6V2.6a.6.6 0 0 1 .6-.6h3.527c.239 0 .468.095.637.263zM2.6 14a.6.6 0 0 1-.6-.6V6.8a.6.6 0 0 1 .6-.6h1.903a1.2 1.2 0 0 1 .849.352L6.2 7.4H11a.6.6 0 0 1 .6.6v5.4a.6.6 0 0 1-.6.6H2.6zM11 5h1.8L11 3.2V5z"></path></svg><span>Newsletters</span></a></li><li><a href="https://learning.oreilly.com/u/preferences/" class="l1 nav-icn "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 53" width="20" height="20" version="1.1" fill="#4A3C31"><desc>settings icon</desc><g stroke="none" stroke-width="1" fill-rule="evenodd"><path d="M44.6 29.6C44.7 28.6 44.8 27.5 44.8 26.5 44.8 25.5 44.7 24.4 44.6 23.4L49.6 19C50 18.8 50.1 18.3 49.9 17.9 48.9 14.7 47.1 11.7 44.9 9.1 44.6 8.8 44.2 8.7 43.8 8.8L37.4 11.1C35.8 9.8 34 8.7 32.1 8L30.9 1.4C30.8 0.9 30.4 0.6 30 0.5 26.7-0.2 23.3-0.2 20 0.5 19.6 0.6 19.2 0.9 19.1 1.4L17.9 8C16 8.7 14.1 9.8 12.6 11.1L6.2 8.8C5.8 8.7 5.4 8.8 5.1 9.1 2.9 11.7 1.1 14.7 0.1 17.9 -0.1 18.3 0 18.8 0.4 19L5.4 23.4C5.3 24.4 5.2 25.5 5.2 26.5 5.2 27.5 5.3 28.6 5.4 29.6L0.4 34C0 34.2-0.1 34.7 0.1 35.1 1.1 38.3 2.9 41.4 5.1 43.9 5.4 44.2 5.8 44.4 6.2 44.2L12.6 42C14.1 43.2 16 44.3 17.9 45L19.1 51.7C19.2 52.1 19.6 52.5 20 52.5 21.6 52.8 23.3 53 25 53 26.7 53 28.4 52.8 30 52.5 30.4 52.5 30.8 52.1 30.9 51.7L32.1 45C34 44.3 35.8 43.2 37.4 42L43.8 44.2C44.2 44.4 44.6 44.2 44.9 43.9 47.1 41.4 48.9 38.3 49.9 35.1 50.1 34.7 50 34.2 49.6 34L44.6 29.6ZM25 36.4C19.6 36.4 15.2 32 15.2 26.5 15.2 21 19.6 16.6 25 16.6 30.4 16.6 34.8 21 34.8 26.5 34.8 32 30.4 36.4 25 36.4Z"></path></g></svg><span>Settings</span></a></li><li><a href="https://learning.oreilly.com/public/support/" class="l1 nav-icn "><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M7.363 6.656a2.692 2.692 0 0 1-2.681-2.703c0-1.493 1.2-2.703 2.681-2.703a2.692 2.692 0 0 1 2.682 2.703c0 1.493-1.2 2.703-2.682 2.703zm4.023 2.027c-1.852 0-3.352 1.513-3.352 3.379H2v-1.534c-.006-.31.099-.612.295-.852a6.666 6.666 0 0 1 9.09-.993zm-.543.676h1.12v.304c.003.284.16.543.408.676a.766.766 0 0 0 .77 0l.303-.176.556.966-.302.176a.772.772 0 0 0-.362.676v.08a.772.772 0 0 0 .362.677l.302.21-.556.965-.302-.175a.766.766 0 0 0-.771 0 .778.778 0 0 0-.409.675v.352h-1.106v-.372a.778.778 0 0 0-.409-.676.766.766 0 0 0-.77 0l-.303.176-.556-.912.302-.176a.772.772 0 0 0 .362-.676v-.04-.04a.772.772 0 0 0-.362-.676l-.302-.176.556-.966.289.155a.766.766 0 0 0 .77 0 .778.778 0 0 0 .41-.676V9.36zm1.562 2.703c0-.271-.108-.531-.3-.722a1.001 1.001 0 0 0-.72-.292 1.01 1.01 0 0 0-.992 1.023 1.01 1.01 0 0 0 1.01 1.004 1.01 1.01 0 0 0 1.002-1.013z"></path></svg><span>Support</span></a></li><li><a href="https://learning.oreilly.com/accounts/logout/" class="l1 nav-icn "><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M2.613 12.63A.607.607 0 0 1 2 12.03V3.602C2 3.269 2.274 3 2.613 3h5.515v1.204H3.226v7.223h4.902v1.203H2.613zM5.677 9.02V6.611h4.903V4.926a.301.301 0 0 1 .19-.274.31.31 0 0 1 .33.063l2.722 2.673a.594.594 0 0 1 0 .849L11.1 10.909a.31.31 0 0 1-.331.063.301.301 0 0 1-.19-.274V9.02H5.677z"></path></svg><span>Sign Out</span></a></li></ul></div></li></ul></nav></header>
+
+
+
+      </div>
+      <div id="container" class="application" style="height: auto;">
+        
+          <div class="nav-container clearfix">
+            
+
+
+            
+            
+          </div>
+
+          
+
+  <div class="js-toc">
+    
+      <div class="sbo-reading-menu sbo-menu-top"><section class="sbo-toc-container toc-menu"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" class="sbo-toc-thumb"><span class="sbo-title ss-list"><h1><div class="visuallyhidden">Table of Contents for </div>
+      
+      Introduction to Machine Learning with Python
+      
+    </h1></span></a><div class="toc-contents"></div></section></div>
+
+    
+
+    <div class="interface-controls interface-controls-top">
+      <ul class="interface-control-btns js-bitlist js-reader">
+        <li class="js-search-in-archive search-in-archive t-search-in-archive"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" title="Search in archive" class="js-search-controls search-controls" onclick="window.Appcues.track(&#39;SearchBook_HeronBook&#39;)"><span class="icon">Search in book...</span></a><form class="search-archive-bar js-search-form"><input type="search" name="query" placeholder="Search inside this book..." autocomplete="off"></form><div class="search-archive-results"><div class="js-sitb-results-region"></div></div></li><li class="queue-control"><div class="js-content-uri" data-content-uri="/api/v1/book/9781449369880/chapter/ch06.html"><div class="js-collections-dropdown collections-dropdown menu-bit-cards" onclick="window.Appcues.track(&#39;AddPlaylist_HeronBook&#39;)"><div data-reactroot="" class="menu-dropdown-wrapper js-menu-dropdown-wrapper align-right"><img class="hidden" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/ajax-transp.gif" alt="loading spinner"><div class="menu-control"><div class="control "><div class="js-playlists-menu"><button class="js-playlist-icon"><svg class="icon-add-to-playlist-sml" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill-rule="nonzero" fill="#000000"><g transform="translate(-1.000000, 0.000000)"><rect x="5" y="0" width="12" height="2"></rect><title>Playlists</title><path d="M4.5,14 C6.43299662,14 8,12.4329966 8,10.5 C8,8.56700338 6.43299662,7 4.5,7 C2.56700338,7 1,8.56700338 1,10.5 C1,12.4329966 2.56700338,14 4.5,14 Z M2.5,10 L4,10 L4,8.5 L5,8.5 L5,10 L6.5,10 L6.5,11 L5,11 L5,12.5 L4,12.5 L4,11 L2.5,11 L2.5,10 Z"></path><circle cx="2" cy="5" r="1"></circle><circle cx="1.94117647" cy="1" r="1"></circle><rect x="5" y="4" width="12" height="2"></rect><rect x="9" y="8" width="8" height="2"></rect><rect x="9" y="12" width="8" height="2"></rect></g></g></g></svg><div class="js-playlist-addto-label">Add&nbsp;To</div></button></div></div></div></div></div></div></li><li class="js-font-control-panel font-control-activator"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" data-push-state="false" id="font-controls" title="Change font size" aria-label="Change font size" onclick="window.Appcues.track(&#39;ChangeFont_HeronBook&#39;)"><span class="icon">Toggle Font Controls</span></a></li><li class="dropdown sharing-controls"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" class="trigger" data-push-state="false" title="Share" aria-label="Share" onclick="window.Appcues.track(&#39;Share_HeronBook&#39;)"><i class="fa fa-share"></i></a><ul class="social-sharing dropdown-menu"><li><a class="twitter share-button t-twitter" target="_blank" aria-label="Share this section on Twitter" title="Share this section on Twitter" href="https://twitter.com/share?url=https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html&amp;text=Introduction%20to%20Machine%20Learning%20with%20Python&amp;via=OReillyMedia"><span>Twitter</span></a></li><li><a class="facebook share-button t-facebook" target="_blank" aria-label="Share this section on Facebook" title="Share this section on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html"><span>Facebook</span></a></li><li><a class="googleplus share-button t-googleplus" target="_blank" aria-label="Share this secton on Google Plus" title="Share this secton on Google Plus" href="https://plus.google.com/share?url=https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html"><span>Google Plus</span></a></li><li><a class="email share-button t-email" aria-label="Share this section via email" title="Share this section via email" href="mailto:?subject=Safari:%206.%20Algorithm%20Chains%20and%20Pipelines&amp;body=https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html%0D%0Afrom%20Introduction%20to%20Machine%20Learning%20with%20Python%0D%0A"><span>Email</span></a></li></ul></li><!-- endif request.user.is_authenticated -->
+      </ul>
+    </div>
+
+      
+          
+      
+
+    <section role="document">
+        
+        
+
+
+
+
+  <script defer="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/djangoMessagesPage.508d93a701b3.js.download"></script>
+
+
+        <script src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/48743.js.download"></script>
+<script>
+  var userId = "d5ff66c5-8631-4846-a88c-12cdf17d9449";
+
+  var userObject = {
+    firstName: "Senganal",
+    segment: "B2B",
+    admin: "False",
+    profileCreatedOn: "2019-12-24",
+    academic: "false"
+  };
+  window.Appcues.identify(userId, userObject);
+  window.Appcues.page();
+
+  setTimeout(function () {
+    window.Appcues.track('ViewingBook_HeronBook')
+  }, 20000);
+</script>
+
+
+	  <div class="t-sbo-prev sbo-prev sbo-nav-top">
+  
+    
+      
+        <a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch05.html" class="prev nav-link">
+      
+          <span aria-hidden="true" class="pagination-label t-prev-label">Prev</span>
+          <span class="visuallyhidden">Previous Chapter</span>
+          <div class="pagination-title t-prev-title">5. Model Evaluation and Improvement</div>
+        </a>
+    
+  
+  </div>
+
+  <div class="t-sbo-next sbo-next sbo-nav-top">
+  
+    
+      
+        <a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch07.html" class="next nav-link">
+      
+          <span aria-hidden="true" class="pagination-label t-next-label">Next</span>
+          <span class="visuallyhidden">Next Chapter</span>
+          <div class="pagination-title t-next-title">7. Working with Text Data</div>
+        </a>
+    
+  
+  </div>
+
+
+
+<div id="sbo-rt-content" style="transform: none;"><div class="annotator-wrapper"><section data-type="chapter" epub:type="chapter" data-pdf-bookmark="Chapter 6. Algorithm Chains and Pipelines"><div class="chapter" id="algorithm-chains-and-pipelines">
+<h1><span class="label">Chapter 6. </span>Algorithm Chains and Pipelines</h1>
+
+
+<p><a data-type="indexterm" data-primary="pipelines" data-see="algorithm chains and pipelines" id="idm45613654904504"></a><a data-type="indexterm" data-primary="machine learning" data-secondary="algorithm chains and pipelines" id="MLalg6"></a><a data-type="indexterm" data-primary="algorithm chains and pipelines" id="algch6"></a><a data-type="indexterm" data-primary="chaining" data-see="algorithm chains and pipelines" id="idm45613654901144"></a><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="importance of" id="idm45613654900184"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="GridSearchCV" id="SLCFgridsearch6a"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="Pipeline" id="SLCFpipeline6a"></a>
+For many machine learning algorithms, the particular representation of
+the data that you provide is very important, as we discussed in <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch04.html#representing-data-and-engineering-features">Chapter&nbsp;4</a>. This starts with scaling the data and combining features by hand and
+goes all the way to learning features using unsupervised machine
+learning, as we saw in <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch03.html#unsupervised-learning-and-preprocessing">Chapter&nbsp;3</a>. Consequently, most machine learning
+applications require not only the application of a single algorithm, but
+the chaining together of many different processing steps and machine
+learning models. In this chapter, we will cover how to use the <code>Pipeline</code>
+class to simplify the process of building chains of transformations and
+models. In particular, we will see how we can combine <code>Pipeline</code> and
+<code>GridSearchCV</code> to search over parameters for all processing steps at
+once.</p>
+
+<p><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="load_breast_cancer" id="idm45613654846504"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="SVC" id="SLCFsvc6a"></a><a data-type="indexterm" data-primary="classifiers" data-secondary="SVC" id="Csvc6a"></a>
+As an example of the importance of chaining models, we noticed that we
+can greatly improve the performance of a kernel SVM on the <code>cancer</code>
+dataset by using the <code>MinMaxScaler</code> for preprocessing. Here’s code for
+splitting the data, computing the minimum and maximum, scaling the data, and
+training the SVM:</p>
+
+<p><code><strong>In[1]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.svm</code> <code class="kn">import</code> <code class="n">SVC</code>
+<code class="kn">from</code> <code class="nn">sklearn.datasets</code> <code class="kn">import</code> <code class="n">load_breast_cancer</code>
+<code class="kn">from</code> <code class="nn">sklearn.model_selection</code> <code class="kn">import</code> <code class="n">train_test_split</code>
+<code class="kn">from</code> <code class="nn">sklearn.preprocessing</code> <code class="kn">import</code> <code class="n">MinMaxScaler</code>
+
+<code class="c1"># load and split the data</code>
+<code class="n">cancer</code> <code class="o">=</code> <code class="n">load_breast_cancer</code><code class="p">()</code>
+<code class="n">X_train</code><code class="p">,</code> <code class="n">X_test</code><code class="p">,</code> <code class="n">y_train</code><code class="p">,</code> <code class="n">y_test</code> <code class="o">=</code> <code class="n">train_test_split</code><code class="p">(</code>
+    <code class="n">cancer</code><code class="o">.</code><code class="n">data</code><code class="p">,</code> <code class="n">cancer</code><code class="o">.</code><code class="n">target</code><code class="p">,</code> <code class="n">random_state</code><code class="o">=</code><code class="mi">0</code><code class="p">)</code>
+
+<code class="c1"># compute minimum and maximum on the training data</code>
+<code class="n">scaler</code> <code class="o">=</code> <code class="n">MinMaxScaler</code><code class="p">()</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train</code><code class="p">)</code></pre>
+
+<p><code><strong>In[2]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="c1"># rescale the training data</code>
+<code class="n">X_train_scaled</code> <code class="o">=</code> <code class="n">scaler</code><code class="o">.</code><code class="n">transform</code><code class="p">(</code><code class="n">X_train</code><code class="p">)</code>
+
+<code class="n">svm</code> <code class="o">=</code> <code class="n">SVC</code><code class="p">()</code>
+<code class="c1"># learn an SVM on the scaled training data</code>
+<code class="n">svm</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train_scaled</code><code class="p">,</code> <code class="n">y_train</code><code class="p">)</code>
+<code class="c1"># scale the test data and score the scaled data</code>
+<code class="n">X_test_scaled</code> <code class="o">=</code> <code class="n">scaler</code><code class="o">.</code><code class="n">transform</code><code class="p">(</code><code class="n">X_test</code><code class="p">)</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Test score: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">svm</code><code class="o">.</code><code class="n">score</code><code class="p">(</code><code class="n">X_test_scaled</code><code class="p">,</code> <code class="n">y_test</code><code class="p">)))</code></pre>
+
+<p><code><strong>Out[2]:</strong></code></p>
+
+<pre data-type="programlisting">Test score: 0.95</pre>
+
+
+
+
+
+
+<section data-type="sect1" data-pdf-bookmark="6.1 Parameter Selection with Preprocessing"><div class="sect1" id="parameter-selection-with-preprocessing">
+<h1>6.1 Parameter Selection with Preprocessing</h1>
+
+<p><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="parameter selection with preprocessing" id="idm45613654692888"></a><a data-type="indexterm" data-primary="preprocessing" data-secondary="parameter selection with" id="idm45613654691880"></a>
+Now let’s say we want to find better parameters for <code>SVC</code> using
+<code>GridSearchCV</code>, as discussed in <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch05.html#model-evaluation-and-improvement">Chapter&nbsp;5</a>. How should we go about doing
+this? A naive approach might look like this:</p>
+
+<p><code><strong>In[3]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.model_selection</code> <code class="kn">import</code> <code class="n">GridSearchCV</code>
+<code class="c1"># for illustration purposes only, don't use this code!</code>
+<code class="n">param_grid</code> <code class="o">=</code> <code class="p">{</code><code class="s1">'C'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.001</code><code class="p">,</code> <code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">],</code>
+              <code class="s1">'gamma'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.001</code><code class="p">,</code> <code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">]}</code>
+<code class="n">grid</code> <code class="o">=</code> <code class="n">GridSearchCV</code><code class="p">(</code><code class="n">SVC</code><code class="p">(),</code> <code class="n">param_grid</code><code class="o">=</code><code class="n">param_grid</code><code class="p">,</code> <code class="n">cv</code><code class="o">=</code><code class="mi">5</code><code class="p">)</code>
+<code class="n">grid</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train_scaled</code><code class="p">,</code> <code class="n">y_train</code><code class="p">)</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Best cross-validation accuracy: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">best_score_</code><code class="p">))</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Best parameters: "</code><code class="p">,</code> <code class="n">grid</code><code class="o">.</code><code class="n">best_params_</code><code class="p">)</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Test set accuracy: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">score</code><code class="p">(</code><code class="n">X_test_scaled</code><code class="p">,</code> <code class="n">y_test</code><code class="p">)))</code></pre>
+
+<p><code><strong>Out[3]:</strong></code></p>
+
+<pre data-type="programlisting">Best cross-validation accuracy: 0.98
+Best parameters:  {'gamma': 1, 'C': 1}
+Test set accuracy: 0.97</pre>
+
+<p>Here, we ran the grid search over the parameters of <code>SVC</code> using the
+scaled data. However, there is a subtle catch in what we just did. When
+scaling the data, we used <em>all the data in the training set</em> to compute the minimum
+and maximum of the data. We then use the <em>scaled training data</em> to run our
+grid search using cross-validation. For each split in the
+cross-validation, some part of the original training set will be
+declared the training part of the split, and some the test part of the
+split. The test part is used to measure the performance of a model trained
+on the training part when applied to new data. However, we already used the
+information contained in the test part of the split, when scaling the
+data. Remember that the test part in each split in the cross-validation
+is part of the training set, and we used the information from the entire
+training set to find the right scaling of the data. <em>This is
+fundamentally different from how new data looks to the model.</em> If we
+observe new data (say, in form of our test set), this data will not have
+been used to scale the training data, and it might have a different
+minimum and maximum than the training data. The following example (<a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#improper_preprocessing">Figure&nbsp;6-1</a>) shows
+how the data processing during cross-validation and the final evaluation
+differ:</p>
+
+<p><code><strong>In[4]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">mglearn</code><code class="o">.</code><code class="n">plots</code><code class="o">.</code><code class="n">plot_improper_processing</code><code class="p">()</code></pre>
+
+<figure><div id="improper_preprocessing" class="figure">
+<img src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/malp_0601.png" alt="png" width="851" height="598" data-mfp-src="/library/view/introduction-to-machine/9781449369880/assets/malp_0601.png">
+<h6><span class="label">Figure 6-1. </span>Data usage when preprocessing outside the cross-validation loop</h6>
+</div></figure>
+
+<p>So, the splits in the cross-validation no longer correctly mirror how new
+data will look to the modeling process. We already leaked information
+from these parts of the data into our modeling process. This will lead
+to overly optimistic results during cross-validation, and possibly the
+selection of suboptimal parameters.</p>
+
+<p>To get around this problem, the splitting of the dataset during
+cross-validation should be done <em>before doing any preprocessing</em>. Any
+process that extracts knowledge from the dataset should only ever be
+learned from the training portion of the dataset, and therefore be contained
+inside the cross-validation loop.</p>
+
+<p><a data-type="indexterm" data-primary="cross_val_score function" id="idm45613654548440"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="cross_val_score" id="idm45613654547368"></a>
+To achieve this in <code>scikit-learn</code> with the <code>cross_val_score</code> function and
+the <code>GridSearchCV</code> function, we can use the <code>Pipeline</code> class. The
+<code>Pipeline</code> class is a class that allows “gluing” together multiple
+processing steps into a single <code>scikit-learn</code> estimator. The <code>Pipeline</code>
+class itself has <code>fit</code>, <code>predict</code>, and <code>score</code> methods and behaves just
+like any other model in <code>scikit-learn</code>. The most common use case of the
+<code>Pipeline</code> class is in chaining preprocessing steps (like scaling of the
+data) together with a supervised model like a classifier.</p>
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-type="sect1" data-pdf-bookmark="6.2 Building Pipelines"><div class="sect1" id="building-pipelines">
+<h1>6.2 Building Pipelines</h1>
+
+<p><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="building pipelines" id="idm45613654545400"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="MinMaxScaler" id="idm45613654544360"></a><a data-type="indexterm" data-primary="algorithms" data-secondary="scaling" data-tertiary="MinMaxScaler" id="idm45613654543400"></a>
+Let’s look at how we can use the <code>Pipeline</code> class to express the
+workflow for training an SVM after scaling the data with <code>MinMaxScaler</code> (for
+now without the grid search). First, we build a pipeline object by
+providing it with a list of steps. Each step is a tuple containing a
+name (any string of your choosing<sup><a data-type="noteref" id="idm45613654541064-marker" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#idm45613654541064" class="totri-footnote">1</a></sup>) and an instance of an
+estimator:</p>
+
+<p><code><strong>In[5]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.pipeline</code> <code class="kn">import</code> <code class="n">Pipeline</code>
+<code class="n">pipe</code> <code class="o">=</code> <code class="n">Pipeline</code><code class="p">([(</code><code class="s2">"scaler"</code><code class="p">,</code> <code class="n">MinMaxScaler</code><code class="p">()),</code> <code class="p">(</code><code class="s2">"svm"</code><code class="p">,</code> <code class="n">SVC</code><code class="p">())])</code></pre>
+
+<p>Here, we created two steps: the first, called <code>"scaler"</code>, is an instance of
+<code>MinMaxScaler</code>, and the second, called <code>"svm"</code>, is an instance of <code>SVC</code>. Now, we can fit
+the pipeline, like any other <code>scikit-learn</code> estimator:</p>
+
+<p><code><strong>In[6]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">pipe</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train</code><code class="p">,</code> <code class="n">y_train</code><code class="p">)</code></pre>
+
+<p>Here, <code>pipe.fit</code> first calls <code>fit</code> on the first step (the scaler), then
+transforms the training data using the scaler, and finally fits the SVM
+with the scaled data. To evaluate on the test data, we simply call
+<code>pipe.score</code>:</p>
+
+<p><code><strong>In[7]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">print</code><code class="p">(</code><code class="s2">"Test score: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">pipe</code><code class="o">.</code><code class="n">score</code><code class="p">(</code><code class="n">X_test</code><code class="p">,</code> <code class="n">y_test</code><code class="p">)))</code></pre>
+
+<p><code><strong>Out[7]:</strong></code></p>
+
+<pre data-type="programlisting">Test score: 0.95</pre>
+
+<p><a data-type="indexterm" data-primary="score method" id="idm45613654442440"></a>
+Calling the <code>score</code> method on the pipeline first transforms the test
+data using the scaler, and then calls the <code>score</code> method on the SVM
+using the scaled test data. As you can see, the result is identical to
+the one we got from the code at the beginning of the chapter, when doing the transformations by hand.
+Using the pipeline, we reduced the code needed for our “preprocessing + classification” process. The main benefit of using the pipeline,
+however, is that we can now use this single estimator in
+<code>cross_val_score</code> or <code>GridSearchCV</code>.</p>
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-type="sect1" data-pdf-bookmark="6.3 Using Pipelines in Grid Searches"><div class="sect1" id="using-pipelines-in-grid-searches">
+<h1>6.3 Using Pipelines in Grid Searches</h1>
+
+<p><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="using pipelines in grid searches" id="ACpipegrid6"></a><a data-type="indexterm" data-primary="grid search" data-secondary="using pipelines in" id="GSpipe6"></a>
+Using a pipeline in a grid search works the same way as using any other
+estimator. We define a parameter grid to search over, and construct a
+<code>GridSearchCV</code> from the pipeline and the parameter grid. When specifying
+the parameter grid, there is a slight change, though. We need to specify
+for each parameter which step of the pipeline it belongs to. Both
+parameters that we want to adjust, <code>C</code> and <code>gamma</code>, are parameters of
+<code>SVC</code>, the second step. We gave this step the name <code>"svm"</code>. The syntax
+to define a parameter grid for a pipeline is to specify for each
+parameter the step name, followed by <code>__</code> (a double underscore),
+followed by the parameter name. To search over the <code>C</code> parameter of <code>SVC</code> we therefore have to use <code>"svm__C"</code> as the key in the parameter
+grid dictionary, and similarly for <code>gamma</code>:</p>
+
+<p><code><strong>In[8]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">param_grid</code> <code class="o">=</code> <code class="p">{</code><code class="s1">'svm__C'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.001</code><code class="p">,</code> <code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">],</code>
+              <code class="s1">'svm__gamma'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.001</code><code class="p">,</code> <code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">]}</code></pre>
+
+<p><a data-type="indexterm" data-primary="" data-startref="Csvc6a" id="idm45613654345592"></a><a data-type="indexterm" data-primary="" data-startref="SLCFsvc6a" id="idm45613654313016"></a>
+With this parameter grid we can use <code>GridSearchCV</code> as usual:</p>
+
+<p><code><strong>In[9]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">grid</code> <code class="o">=</code> <code class="n">GridSearchCV</code><code class="p">(</code><code class="n">pipe</code><code class="p">,</code> <code class="n">param_grid</code><code class="o">=</code><code class="n">param_grid</code><code class="p">,</code> <code class="n">cv</code><code class="o">=</code><code class="mi">5</code><code class="p">)</code>
+<code class="n">grid</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train</code><code class="p">,</code> <code class="n">y_train</code><code class="p">)</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Best cross-validation accuracy: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">best_score_</code><code class="p">))</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Test set score: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">score</code><code class="p">(</code><code class="n">X_test</code><code class="p">,</code> <code class="n">y_test</code><code class="p">)))</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Best parameters: {}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">best_params_</code><code class="p">))</code></pre>
+
+<p><code><strong>Out[9]:</strong></code></p>
+
+<pre data-type="programlisting">Best cross-validation accuracy: 0.98
+Test set score: 0.97
+Best parameters: {'svm__C': 1, 'svm__gamma': 1}</pre>
+
+<p><a data-type="indexterm" data-primary="" data-startref="SLCFgridsearch6a" id="idm45613654226488"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="MinMaxScaler" id="idm45613654225544"></a>
+In contrast to the grid search we did before, now for each split in the
+cross-validation, the <code>MinMaxScaler</code> is refit with only the training
+splits and no information is leaked from the test split into the parameter
+search. Compare this (<a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#data_usage_inside_cv_loop_using_pipeline">Figure&nbsp;6-2</a>) with
+<a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#improper_preprocessing">Figure&nbsp;6-1</a> earlier in this chapter:</p>
+
+<p><code><strong>In[10]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">mglearn</code><code class="o">.</code><code class="n">plots</code><code class="o">.</code><code class="n">plot_proper_processing</code><code class="p">()</code></pre>
+
+<figure><div id="data_usage_inside_cv_loop_using_pipeline" class="figure">
+<img src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/malp_06in01.png" alt="png" width="851" height="487" data-mfp-src="/library/view/introduction-to-machine/9781449369880/assets/malp_06in01.png">
+<h6><span class="label">Figure 6-2. </span>Data usage when preprocessing inside the cross-validation loop with a <span class="keep-together">pipeline</span></h6>
+</div></figure>
+
+<p><a data-type="indexterm" data-primary="information leakage" id="idm45613654214712"></a><a data-type="indexterm" data-primary="leakage" id="idm45613654214008"></a>
+The impact of leaking information in the cross-validation varies
+depending on the nature of the preprocessing step. Estimating the scale
+of the data using the test fold usually doesn’t have a terrible impact,
+while using the test fold in feature extraction and feature selection
+can lead to substantial differences in outcomes.</p>
+<aside data-type="sidebar" epub:type="sidebar"><div class="sidebar" id="idm45613654212728">
+<h5>Illustrating Information Leakage</h5>
+<p>A great example of leaking information in cross-validation is given in
+Hastie, Tibshirani, and Friedman’s book <em>The Elements of Statistical
+Learning</em>, and we reproduce an adapted version here. Let’s consider a
+synthetic regression task with 100 samples and 10,000 features that are
+sampled independently from a Gaussian distribution. We also sample the
+response from a Gaussian distribution:</p>
+
+<p><code><strong>In[11]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">rnd</code> <code class="o">=</code> <code class="n">np</code><code class="o">.</code><code class="n">random</code><code class="o">.</code><code class="n">RandomState</code><code class="p">(</code><code class="n">seed</code><code class="o">=</code><code class="mi">0</code><code class="p">)</code>
+<code class="n">X</code> <code class="o">=</code> <code class="n">rnd</code><code class="o">.</code><code class="n">normal</code><code class="p">(</code><code class="n">size</code><code class="o">=</code><code class="p">(</code><code class="mi">100</code><code class="p">,</code> <code class="mi">10000</code><code class="p">))</code>
+<code class="n">y</code> <code class="o">=</code> <code class="n">rnd</code><code class="o">.</code><code class="n">normal</code><code class="p">(</code><code class="n">size</code><code class="o">=</code><code class="p">(</code><code class="mi">100</code><code class="p">,))</code></pre>
+
+<p><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="Ridge" id="idm45613654086136"></a><a data-type="indexterm" data-primary="algorithms" data-secondary="supervised, regression" data-tertiary="Ridge" id="idm45613654126328"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="SelectPercentile" id="idm45613654125176"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="f_regression" id="idm45613654124264"></a><a data-type="indexterm" data-primary="regression" data-secondary="f_regression" id="idm45613654123352"></a>
+Given the way we created the dataset, there is no relation between the
+data, <code>X</code>, and the target, <code>y</code> (they are independent), so it should not be
+possible to learn anything from this dataset. We will now do the
+following. First, select the most informative of the 10,000 features using
+<code>SelectPercentile</code> feature selection, and then we evaluate a <code>Ridge</code>
+regressor using cross-validation:</p>
+
+<p><code><strong>In[12]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.feature_selection</code> <code class="kn">import</code> <code class="n">SelectPercentile</code><code class="p">,</code> <code class="n">f_regression</code>
+
+<code class="n">select</code> <code class="o">=</code> <code class="n">SelectPercentile</code><code class="p">(</code><code class="n">score_func</code><code class="o">=</code><code class="n">f_regression</code><code class="p">,</code> <code class="n">percentile</code><code class="o">=</code><code class="mi">5</code><code class="p">)</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X</code><code class="p">,</code> <code class="n">y</code><code class="p">)</code>
+<code class="n">X_selected</code> <code class="o">=</code> <code class="n">select</code><code class="o">.</code><code class="n">transform</code><code class="p">(</code><code class="n">X</code><code class="p">)</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"X_selected.shape: {}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">X_selected</code><code class="o">.</code><code class="n">shape</code><code class="p">))</code></pre>
+
+<p><code><strong>Out[12]:</strong></code></p>
+
+<pre data-type="programlisting">X_selected.shape: (100, 500)</pre>
+
+<p><code><strong>In[13]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.model_selection</code> <code class="kn">import</code> <code class="n">cross_val_score</code>
+<code class="kn">from</code> <code class="nn">sklearn.linear_model</code> <code class="kn">import</code> <code class="n">Ridge</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Cross-validation accuracy (cv only on ridge): {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code>
+      <code class="n">np</code><code class="o">.</code><code class="n">mean</code><code class="p">(</code><code class="n">cross_val_score</code><code class="p">(</code><code class="n">Ridge</code><code class="p">(),</code> <code class="n">X_selected</code><code class="p">,</code> <code class="n">y</code><code class="p">,</code> <code class="n">cv</code><code class="o">=</code><code class="mi">5</code><code class="p">))))</code></pre>
+
+<p><code><strong>Out[13]:</strong></code></p>
+
+<pre data-type="programlisting">Cross-validation accuracy (cv only on ridge): 0.91</pre>
+
+<p>The mean <em>R</em><sup>2</sup> computed by cross-validation is 0.91,
+indicating a very good model. This clearly cannot be right, as our data
+is entirely random. What happened here is that our feature selection
+picked out some features among the 10,000 random features that are (by
+chance) very well correlated with the target. Because we fit the feature
+selection <em>outside</em> of the cross-validation, it could find features that
+are correlated both on the training and the test folds. The information
+we leaked from the test folds was very informative, leading to highly
+unrealistic results. Let’s compare this to a proper cross-validation
+using a pipeline:</p>
+
+<p><code><strong>In[14]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">pipe</code> <code class="o">=</code> <code class="n">Pipeline</code><code class="p">([(</code><code class="s2">"select"</code><code class="p">,</code> <code class="n">SelectPercentile</code><code class="p">(</code><code class="n">score_func</code><code class="o">=</code><code class="n">f_regression</code><code class="p">,</code>
+                                             <code class="n">percentile</code><code class="o">=</code><code class="mi">5</code><code class="p">)),</code>
+                 <code class="p">(</code><code class="s2">"ridge"</code><code class="p">,</code> <code class="n">Ridge</code><code class="p">())])</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Cross-validation accuracy (pipeline): {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code>
+      <code class="n">np</code><code class="o">.</code><code class="n">mean</code><code class="p">(</code><code class="n">cross_val_score</code><code class="p">(</code><code class="n">pipe</code><code class="p">,</code> <code class="n">X</code><code class="p">,</code> <code class="n">y</code><code class="p">,</code> <code class="n">cv</code><code class="o">=</code><code class="mi">5</code><code class="p">))))</code></pre>
+
+<p><code><strong>Out[14]:</strong></code></p>
+
+<pre data-type="programlisting">Cross-validation accuracy (pipeline): -0.25</pre>
+
+<p>This time, we get a <em>negative</em> <em>R</em><sup>2</sup> score, indicating a
+very poor model. Using the pipeline, the feature selection is now
+<em>inside</em> the cross-validation loop. This means features can only be
+selected using the training folds of the data, not the test fold. The
+feature selection finds features that are correlated with the target on
+the training set, but because the data is entirely random, these
+features are not correlated with the target on the test set. In this
+example, rectifying the data leakage issue in the feature selection
+makes the difference between concluding that a model works very well and
+concluding that a model works not at all.<a data-type="indexterm" data-primary="" data-startref="ACpipegrid6" id="idm45613653897288"></a><a data-type="indexterm" data-primary="" data-startref="GSpipe6" id="idm45613653896312"></a></p>
+</div></aside>
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-type="sect1" data-pdf-bookmark="6.4 The General Pipeline Interface"><div class="sect1" id="the-general-pipeline-interface">
+<h1>6.4 The General Pipeline Interface</h1>
+
+<p><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="pipeline interface" id="idm45613653893704"></a>
+The <code>Pipeline</code> class is not restricted to preprocessing and
+classification, but can in fact join any number of estimators together.
+For example, you could build a pipeline containing feature extraction,
+feature selection, scaling, and classification, for a total of four
+steps. Similarly, the last step could be regression or clustering instead
+of classification.</p>
+
+<p><a data-type="indexterm" data-primary="transform method" id="idm45613653891560"></a>
+The only requirement for estimators in a pipeline is that all but the
+last step need to have a <code>transform</code> method, so they can produce a new
+representation of the data that can be used in the next step.</p>
+
+<p>Internally, during the call to <code>Pipeline.fit</code>, the pipeline calls
+<code>fit</code> and then <code>transform</code> on each step in turn,<sup><a data-type="noteref" id="idm45613653888168-marker" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#idm45613653888168" class="totri-footnote">2</a></sup> with the input given by the output of the <code>transform</code>
+method of the previous step. For the last step in the pipeline, just
+<code>fit</code> is called.</p>
+
+<p>Brushing over some finer details, this is implemented
+as follows. Remember that <code>pipeline.steps</code> is a list of tuples, so
+<code>pipeline.steps[0][1]</code> is the first estimator, <code>pipeline.steps[1][1]</code> is
+the second estimator, and so on:</p>
+
+<p><code><strong>In[15]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">def</code> <code class="nf">fit</code><code class="p">(</code><code class="bp">self</code><code class="p">,</code> <code class="n">X</code><code class="p">,</code> <code class="n">y</code><code class="p">):</code>
+    <code class="n">X_transformed</code> <code class="o">=</code> <code class="n">X</code>
+    <code class="k">for</code> <code class="n">name</code><code class="p">,</code> <code class="n">estimator</code> <code class="ow">in</code> <code class="bp">self</code><code class="o">.</code><code class="n">steps</code><code class="p">[:</code><code class="o">-</code><code class="mi">1</code><code class="p">]:</code>
+        <code class="c1"># iterate over all but the final step</code>
+        <code class="c1"># fit and transform the data</code>
+        <code class="n">X_transformed</code> <code class="o">=</code> <code class="n">estimator</code><code class="o">.</code><code class="n">fit_transform</code><code class="p">(</code><code class="n">X_transformed</code><code class="p">,</code> <code class="n">y</code><code class="p">)</code>
+    <code class="c1"># fit the last step</code>
+    <code class="bp">self</code><code class="o">.</code><code class="n">steps</code><code class="p">[</code><code class="o">-</code><code class="mi">1</code><code class="p">][</code><code class="mi">1</code><code class="p">]</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_transformed</code><code class="p">,</code> <code class="n">y</code><code class="p">)</code>
+    <code class="k">return</code> <code class="bp">self</code></pre>
+
+<p>When predicting using <code>Pipeline</code>, we similarly <code>transform</code> the data
+using all but the last step, and then call <code>predict</code> on the last step:</p>
+
+<p><code><strong>In[16]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">def</code> <code class="nf">predict</code><code class="p">(</code><code class="bp">self</code><code class="p">,</code> <code class="n">X</code><code class="p">):</code>
+    <code class="n">X_transformed</code> <code class="o">=</code> <code class="n">X</code>
+    <code class="k">for</code> <code class="n">step</code> <code class="ow">in</code> <code class="bp">self</code><code class="o">.</code><code class="n">steps</code><code class="p">[:</code><code class="o">-</code><code class="mi">1</code><code class="p">]:</code>
+        <code class="c1"># iterate over all but the final step</code>
+        <code class="c1"># transform the data</code>
+        <code class="n">X_transformed</code> <code class="o">=</code> <code class="n">step</code><code class="p">[</code><code class="mi">1</code><code class="p">]</code><code class="o">.</code><code class="n">transform</code><code class="p">(</code><code class="n">X_transformed</code><code class="p">)</code>
+    <code class="c1"># predict using the last step</code>
+    <code class="k">return</code> <code class="bp">self</code><code class="o">.</code><code class="n">steps</code><code class="p">[</code><code class="o">-</code><code class="mi">1</code><code class="p">][</code><code class="mi">1</code><code class="p">]</code><code class="o">.</code><code class="n">predict</code><code class="p">(</code><code class="n">X_transformed</code><code class="p">)</code></pre>
+
+<p>The process is illustrated in <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#overview_pipeline_training_prediction_process">Figure&nbsp;6-3</a> for two transformers, <code>T1</code> and <code>T2</code>, and a
+<span class="keep-together">classifier</span> (called <code>Classifier</code>).</p>
+
+<figure><div id="overview_pipeline_training_prediction_process" class="figure">
+<img src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/malp_06in02.png" alt="pipeline_illustration" width="1243" height="878" data-mfp-src="/library/view/introduction-to-machine/9781449369880/assets/malp_06in02.png">
+<h6><span class="label">Figure 6-3. </span>Overview of the pipeline training and prediction process</h6>
+</div></figure>
+
+<p><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="PCA" id="SLCFpca6a"></a>
+The pipeline is actually even more general than this. There is no
+requirement for the last step in a pipeline to have a <code>predict</code>
+function, and we could create a pipeline just containing, for example, a
+scaler and <code>PCA</code>. Then, because the last step (<code>PCA</code>) has a <code>transform</code>
+method, we could call <code>transform</code> on the pipeline to get the output of
+<code>PCA.transform</code> applied to the data that was processed by the previous
+step. The last step of a pipeline is only required to have a <code>fit</code>
+method.</p>
+
+
+
+
+
+
+
+
+<section data-type="sect2" data-pdf-bookmark="6.4.1 Convenient Pipeline Creation with make_pipeline"><div class="sect2" id="convenient-pipeline-creation-with-make_pipeline">
+<h2>6.4.1 Convenient Pipeline Creation with make_pipeline</h2>
+
+<p><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="building pipelines with make_pipeline" id="ACPmakepipe6"></a><a data-type="indexterm" data-primary="make_pipeline function" data-secondary="syntax for" id="idm45613653710904"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="SVC" id="SLCFsvc6b"></a><a data-type="indexterm" data-primary="classifiers" data-secondary="SVC" id="Csvc6b"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="make_pipeline" id="SLCFmkpipe6a"></a>
+Creating a pipeline using the syntax described earlier is sometimes a
+bit cumbersome, and we often don’t need user-specified names for each
+step. There is a convenience function, <code>make_pipeline</code>, that will create a
+pipeline for us and automatically name each step based on its class. The
+syntax for <code>make_pipeline</code> is as follows:</p>
+
+<p><code><strong>In[17]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.pipeline</code> <code class="kn">import</code> <code class="n">make_pipeline</code>
+<code class="c1"># standard syntax</code>
+<code class="n">pipe_long</code> <code class="o">=</code> <code class="n">Pipeline</code><code class="p">([(</code><code class="s2">"scaler"</code><code class="p">,</code> <code class="n">MinMaxScaler</code><code class="p">()),</code> <code class="p">(</code><code class="s2">"svm"</code><code class="p">,</code> <code class="n">SVC</code><code class="p">(</code><code class="n">C</code><code class="o">=</code><code class="mi">100</code><code class="p">))])</code>
+<code class="c1"># abbreviated syntax</code>
+<code class="n">pipe_short</code> <code class="o">=</code> <code class="n">make_pipeline</code><code class="p">(</code><code class="n">MinMaxScaler</code><code class="p">(),</code> <code class="n">SVC</code><code class="p">(</code><code class="n">C</code><code class="o">=</code><code class="mi">100</code><code class="p">))</code></pre>
+
+<p><a data-type="indexterm" data-primary="make_pipeline function" data-secondary="displaying steps attribute" id="idm45613653702728"></a>
+The pipeline objects <code>pipe_long</code> and <code>pipe_short</code> do exactly the same
+thing, but <code>pipe_short</code> has steps that were automatically named.
+We can see the names of the steps by looking at the <code>steps</code> attribute:</p>
+
+<p><code><strong>In[18]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">print</code><code class="p">(</code><code class="s2">"Pipeline steps:</code><code class="se">\n</code><code class="s2">{}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">pipe_short</code><code class="o">.</code><code class="n">steps</code><code class="p">))</code></pre>
+
+<p><code><strong>Out[18]:</strong></code></p>
+
+<pre data-type="programlisting">Pipeline steps:
+[('minmaxscaler', MinMaxScaler(copy=True, feature_range=(0, 1))),
+ ('svc', SVC(C=100, cache_size=200, class_weight=None, coef0=0.0,
+	     decision_function_shape='ovr', degree=3, gamma='auto',
+             kernel='rbf', max_iter=-1, probability=False,
+             random_state=None, shrinking=True, tol=0.001,
+             verbose=False))]</pre>
+
+<p><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="StandardScaler" id="SLCFstdscal6a"></a><a data-type="indexterm" data-primary="algorithms" data-secondary="scaling" data-tertiary="StandardScaler" id="Ascalstndscal6a"></a>
+The steps are named <code>minmaxscaler</code> and <code>svc</code>. In general, the step names
+are just lowercase versions of the class names. If multiple steps have
+the same class, a number is appended:</p>
+
+<p><code><strong>In[19]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.preprocessing</code> <code class="kn">import</code> <code class="n">StandardScaler</code>
+<code class="kn">from</code> <code class="nn">sklearn.decomposition</code> <code class="kn">import</code> <code class="n">PCA</code>
+
+<code class="n">pipe</code> <code class="o">=</code> <code class="n">make_pipeline</code><code class="p">(</code><code class="n">StandardScaler</code><code class="p">(),</code> <code class="n">PCA</code><code class="p">(</code><code class="n">n_components</code><code class="o">=</code><code class="mi">2</code><code class="p">),</code> <code class="n">StandardScaler</code><code class="p">())</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Pipeline steps:</code><code class="se">\n</code><code class="s2">{}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">pipe</code><code class="o">.</code><code class="n">steps</code><code class="p">))</code></pre>
+
+<p><code><strong>Out[19]:</strong></code></p>
+
+<pre data-type="programlisting">Pipeline steps:
+[('standardscaler-1', StandardScaler(copy=True, with_mean=True, with_std=True)),
+ ('pca', PCA(copy=True, iterated_power='auto', n_components=2, random_state=None,
+             svd_solver='auto', tol=0.0, whiten=False)),
+ ('standardscaler-2', StandardScaler(copy=True, with_mean=True, with_std=True))]</pre>
+
+<p>As you can see, the first <code>StandardScaler</code> step was named
+<code>standardscaler-1</code> and the second <code>standardscaler-2</code>. However, in
+such settings it might be better to use the <code>Pipeline</code> construction with
+explicit names, to give more semantic names to each step.</p>
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-type="sect2" data-pdf-bookmark="6.4.2 Accessing Step Attributes"><div class="sect2" id="accessing-step-attributes">
+<h2>6.4.2 Accessing Step Attributes</h2>
+
+<p><a data-type="indexterm" data-primary="make_pipeline function" data-secondary="accessing step attributes" id="idm45613653524936"></a>
+Often you will want to inspect attributes of one of the steps of the
+pipeline—say, the coefficients of a linear model or the components
+extracted by <code>PCA</code>. The easiest way to access the steps in a pipeline is via
+the <code>named_steps</code> attribute, which is a dictionary from the step names to
+the estimators:<a data-type="indexterm" data-primary="" data-startref="SLCFpca6a" id="idm45613653522888"></a></p>
+
+<p class="pagebreak-before"><code><strong>In[20]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="c1"># fit the pipeline defined before to the cancer dataset</code>
+<code class="n">pipe</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">cancer</code><code class="o">.</code><code class="n">data</code><code class="p">)</code>
+<code class="c1"># extract the first two principal components from the "pca" step</code>
+<code class="n">components</code> <code class="o">=</code> <code class="n">pipe</code><code class="o">.</code><code class="n">named_steps</code><code class="p">[</code><code class="s2">"pca"</code><code class="p">]</code><code class="o">.</code><code class="n">components_</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"components.shape: {}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">components</code><code class="o">.</code><code class="n">shape</code><code class="p">))</code></pre>
+
+<p><code><strong>Out[20]:</strong></code></p>
+
+<pre data-type="programlisting">components.shape: (2, 30)</pre>
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-type="sect2" data-pdf-bookmark="6.4.3 Accessing Attributes in a Pipeline inside GridSearchCV"><div class="sect2" id="accessing-attributes-in-grid-searched-pipeline.">
+<h2>6.4.3 Accessing Attributes in a Pipeline inside GridSearchCV</h2>
+
+<p><a data-type="indexterm" data-primary="make_pipeline function" data-secondary="grid-searched pipelines and" id="idm45613653496872"></a><a data-type="indexterm" data-primary="grid search" data-secondary="accessing pipeline attributes" id="idm45613653495704"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="LogisticRegression" id="idm45613653494792"></a><a data-type="indexterm" data-primary="classifiers" data-secondary="LogisticRegression" id="idm45613653493880"></a>
+As we discussed earlier in this chapter, one of the main reasons to use pipelines is for
+doing grid searches. A common task is to access some of the steps of a
+pipeline inside a grid search. Let’s grid search a <code>LogisticRegression</code>
+classifier on the <code>cancer</code> dataset, using <code>Pipeline</code> and
+<code>StandardScaler</code> to scale the data before passing it to the
+<code>LogisticRegression</code> classifier. First we create a pipeline using the
+<code>make_pipeline</code> function:</p>
+
+<p><code><strong>In[21]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.linear_model</code> <code class="kn">import</code> <code class="n">LogisticRegression</code>
+
+<code class="n">pipe</code> <code class="o">=</code> <code class="n">make_pipeline</code><code class="p">(</code><code class="n">StandardScaler</code><code class="p">(),</code> <code class="n">LogisticRegression</code><code class="p">())</code></pre>
+
+<p>Next, we create a parameter grid. As explained in <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch02.html#supervised-learning">Chapter&nbsp;2</a>, the regularization parameter to tune for <code>LogisticRegression</code> is the parameter <code>C</code>. We use a logarithmic grid for this parameter, searching between 0.01 and
+100. Because we used the <code>make_pipeline</code> function, the name of the
+<code>LogisticRegression</code> step in the pipeline is the lowercased class name,
+<code>logisticregression</code>. To tune the parameter <code>C</code>, we therefore have to
+specify a parameter grid for <code>logisticregression__C</code>:</p>
+
+<p><code><strong>In[22]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">param_grid</code> <code class="o">=</code> <code class="p">{</code><code class="s1">'logisticregression__C'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">]}</code></pre>
+
+<p><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="GridSearchCV" id="SLCFgridsearch6b"></a>
+As usual, we split the <code>cancer</code> dataset into training and test sets, and
+fit a grid search:</p>
+
+<p><code><strong>In[23]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">X_train</code><code class="p">,</code> <code class="n">X_test</code><code class="p">,</code> <code class="n">y_train</code><code class="p">,</code> <code class="n">y_test</code> <code class="o">=</code> <code class="n">train_test_split</code><code class="p">(</code>
+    <code class="n">cancer</code><code class="o">.</code><code class="n">data</code><code class="p">,</code> <code class="n">cancer</code><code class="o">.</code><code class="n">target</code><code class="p">,</code> <code class="n">random_state</code><code class="o">=</code><code class="mi">4</code><code class="p">)</code>
+<code class="n">grid</code> <code class="o">=</code> <code class="n">GridSearchCV</code><code class="p">(</code><code class="n">pipe</code><code class="p">,</code> <code class="n">param_grid</code><code class="p">,</code> <code class="n">cv</code><code class="o">=</code><code class="mi">5</code><code class="p">)</code>
+<code class="n">grid</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train</code><code class="p">,</code> <code class="n">y_train</code><code class="p">)</code></pre>
+
+<p>So how do we access the coefficients of the best <code>LogisticRegression</code>
+model that was found by <code>GridSearchCV</code>? From <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch05.html#model-evaluation-and-improvement">Chapter&nbsp;5</a> we know that the
+best model found by <span class="keep-together"><code>GridSearchCV</code></span>, trained on all the training data, is
+stored in <code>grid.best_estimator_</code>:</p>
+
+<p class="pagebreak-before"><code><strong>In[24]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">print</code><code class="p">(</code><code class="s2">"Best estimator:</code><code class="se">\n</code><code class="s2">{}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">best_estimator_</code><code class="p">))</code></pre>
+
+<p><code><strong>Out[24]:</strong></code></p>
+
+<pre data-type="programlisting">Best estimator:
+Pipeline(memory=None, steps=[
+    ('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)),
+    ('logisticregression', LogisticRegression(C=0.1, class_weight=None,
+    dual=False, fit_intercept=True, intercept_scaling=1, max_iter=100,
+    multi_class='warn', n_jobs=None, penalty='l2', random_state=None,
+    solver='warn', tol=0.0001, verbose=0, warm_start=False))])</pre>
+
+<p>This <code>best_estimator_</code> in our case is a pipeline with two steps,
+<code>standardscaler</code> and <code>logisticregression</code>. To access the
+<code>logisticregression</code> step, we can use the <code>named_steps</code> attribute of the
+pipeline, as explained earlier:</p>
+
+<p><code><strong>In[25]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">print</code><code class="p">(</code><code class="s2">"Logistic regression step:</code><code class="se">\n</code><code class="s2">{}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code>
+      <code class="n">grid</code><code class="o">.</code><code class="n">best_estimator_</code><code class="o">.</code><code class="n">named_steps</code><code class="p">[</code><code class="s2">"logisticregression"</code><code class="p">]))</code></pre>
+
+<p><code><strong>Out[25]:</strong></code></p>
+
+<pre data-type="programlisting">Logistic regression step:
+LogisticRegression(C=0.1, class_weight=None, dual=False, fit_intercept=True,
+                  intercept_scaling=1, max_iter=100, multi_class='warn',
+                  n_jobs=None, penalty='l2', random_state=None, solver='warn',
+                  tol=0.0001, verbose=0, warm_start=False)</pre>
+
+<p>Now that we have the trained <code>LogisticRegression</code> instance, we can
+access the coefficients (weights) associated with each input feature:</p>
+
+<p><code><strong>In[26]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">print</code><code class="p">(</code><code class="s2">"Logistic regression coefficients:</code><code class="se">\n</code><code class="s2">{}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code>
+      <code class="n">grid</code><code class="o">.</code><code class="n">best_estimator_</code><code class="o">.</code><code class="n">named_steps</code><code class="p">[</code><code class="s2">"logisticregression"</code><code class="p">]</code><code class="o">.</code><code class="n">coef_</code><code class="p">))</code></pre>
+
+<p><code><strong>Out[26]:</strong></code></p>
+
+<pre data-type="programlisting">Logistic regression coefficients:
+[[-0.389 -0.375 -0.376 -0.396 -0.115  0.017 -0.355 -0.39  -0.058  0.209
+  -0.495 -0.004 -0.371 -0.383 -0.045  0.198  0.004 -0.049  0.21   0.224
+  -0.547 -0.525 -0.499 -0.515 -0.393 -0.123 -0.388 -0.417 -0.325 -0.139]]</pre>
+
+<p>This might be a somewhat lengthy expression, but often it comes in handy in
+understanding your models.<a data-type="indexterm" data-primary="" data-startref="ACPmakepipe6" id="idm45613653201144"></a></p>
+</div></section>
+
+
+
+
+
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-type="sect1" data-pdf-bookmark="6.5 Grid-Searching Preprocessing Steps and Model Parameters"><div class="sect1" id="grid-searching-preprocessing-steps-and-model-parameters">
+<h1>6.5 Grid-Searching Preprocessing Steps and Model Parameters</h1>
+
+<p><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="grid search preprocessing steps" id="idm45613653198600"></a><a data-type="indexterm" data-primary="grid search" data-secondary="pipeline preprocessing" id="idm45613653197496"></a><a data-type="indexterm" data-primary="models" data-secondary="pipeline preprocessing and" id="idm45613653170792"></a><a data-type="indexterm" data-primary="preprocessing" data-secondary="pipelines and" id="idm45613653169880"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="Ridge" id="SLCFridge6b"></a><a data-type="indexterm" data-primary="algorithms" data-secondary="supervised, regression" data-tertiary="Ridge" id="Asupregridge6b"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="load_boston" id="idm45613653166264"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="PolynomialFeatures" id="idm45613653165352"></a>
+Using pipelines, we can encapsulate all the processing steps in our machine
+learning workflow in a single <code>scikit-learn</code> estimator. Another benefit
+of doing this is that we can now <em>adjust the parameters of the
+preprocessing</em> using the outcome of a supervised task like regression or
+classification. In previous chapters, we used polynomial features on the
+<code>boston</code> dataset before applying the ridge regressor. Let’s model that
+using a pipeline instead. The pipeline contains three steps—scaling the
+data, computing polynomial features, and ridge regression:</p>
+
+<p><code><strong>In[27]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.datasets</code> <code class="kn">import</code> <code class="n">load_boston</code>
+<code class="n">boston</code> <code class="o">=</code> <code class="n">load_boston</code><code class="p">()</code>
+<code class="n">X_train</code><code class="p">,</code> <code class="n">X_test</code><code class="p">,</code> <code class="n">y_train</code><code class="p">,</code> <code class="n">y_test</code> <code class="o">=</code> <code class="n">train_test_split</code><code class="p">(</code><code class="n">boston</code><code class="o">.</code><code class="n">data</code><code class="p">,</code> <code class="n">boston</code><code class="o">.</code><code class="n">target</code><code class="p">,</code>
+                                                    <code class="n">random_state</code><code class="o">=</code><code class="mi">0</code><code class="p">)</code>
+
+<code class="kn">from</code> <code class="nn">sklearn.preprocessing</code> <code class="kn">import</code> <code class="n">PolynomialFeatures</code>
+<code class="n">pipe</code> <code class="o">=</code> <code class="n">make_pipeline</code><code class="p">(</code>
+    <code class="n">StandardScaler</code><code class="p">(),</code>
+    <code class="n">PolynomialFeatures</code><code class="p">(),</code>
+    <code class="n">Ridge</code><code class="p">())</code></pre>
+
+<p>How do we know which degrees of polynomials to choose, or whether to
+choose any polynomials or interactions at all? Ideally we want to select
+the <code>degree</code> parameter based on the outcome of the classification. Using
+our pipeline, we can search over the <code>degree</code> parameter together with
+the parameter <code>alpha</code> of <code>Ridge</code>. To do this, we define a <code>param_grid</code>
+that contains both, appropriately prefixed by the step names:</p>
+
+<p><code><strong>In[28]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">param_grid</code> <code class="o">=</code> <code class="p">{</code><code class="s1">'polynomialfeatures__degree'</code><code class="p">:</code> <code class="p">[</code><code class="mi">1</code><code class="p">,</code> <code class="mi">2</code><code class="p">,</code> <code class="mi">3</code><code class="p">],</code>
+              <code class="s1">'ridge__alpha'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.001</code><code class="p">,</code> <code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">]}</code></pre>
+
+<p>Now we can run our grid search again:</p>
+
+<p><code><strong>In[29]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">grid</code> <code class="o">=</code> <code class="n">GridSearchCV</code><code class="p">(</code><code class="n">pipe</code><code class="p">,</code> <code class="n">param_grid</code><code class="o">=</code><code class="n">param_grid</code><code class="p">,</code> <code class="n">cv</code><code class="o">=</code><code class="mi">5</code><code class="p">,</code> <code class="n">n_jobs</code><code class="o">=-</code><code class="mi">1</code><code class="p">)</code>
+<code class="n">grid</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train</code><code class="p">,</code> <code class="n">y_train</code><code class="p">)</code></pre>
+
+<p>We can visualize the outcome of the cross-validation using a heat map (<a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#heatmap_mean_cv_score_func_degree_poly">Figure&nbsp;6-4</a>), as
+we did in <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch05.html#model-evaluation-and-improvement">Chapter&nbsp;5</a>:</p>
+
+<p><code><strong>In[30]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">plt</code><code class="o">.</code><code class="n">matshow</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">cv_results_</code><code class="p">[</code><code class="s1">'mean_test_score'</code><code class="p">]</code><code class="o">.</code><code class="n">reshape</code><code class="p">(</code><code class="mi">3</code><code class="p">,</code> <code class="o">-</code><code class="mi">1</code><code class="p">),</code>
+            <code class="n">vmin</code><code class="o">=</code><code class="mi">0</code><code class="p">,</code> <code class="n">cmap</code><code class="o">=</code><code class="s2">"viridis"</code><code class="p">)</code>
+<code class="n">plt</code><code class="o">.</code><code class="n">xlabel</code><code class="p">(</code><code class="s2">"ridge__alpha"</code><code class="p">)</code>
+<code class="n">plt</code><code class="o">.</code><code class="n">ylabel</code><code class="p">(</code><code class="s2">"polynomialfeatures__degree"</code><code class="p">)</code>
+<code class="n">plt</code><code class="o">.</code><code class="n">xticks</code><code class="p">(</code><code class="nb">range</code><code class="p">(</code><code class="nb">len</code><code class="p">(</code><code class="n">param_grid</code><code class="p">[</code><code class="s1">'ridge__alpha'</code><code class="p">])),</code> <code class="n">param_grid</code><code class="p">[</code><code class="s1">'ridge__alpha'</code><code class="p">])</code>
+<code class="n">plt</code><code class="o">.</code><code class="n">yticks</code><code class="p">(</code><code class="nb">range</code><code class="p">(</code><code class="nb">len</code><code class="p">(</code><code class="n">param_grid</code><code class="p">[</code><code class="s1">'polynomialfeatures__degree'</code><code class="p">])),</code>
+           <code class="n">param_grid</code><code class="p">[</code><code class="s1">'polynomialfeatures__degree'</code><code class="p">])</code>
+
+<code class="n">plt</code><code class="o">.</code><code class="n">colorbar</code><code class="p">()</code></pre>
+
+<figure><div id="heatmap_mean_cv_score_func_degree_poly" class="figure">
+<img src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/malp_06in03.png" alt="png" width="451" height="242" data-mfp-src="/library/view/introduction-to-machine/9781449369880/assets/malp_06in03.png">
+<h6><span class="label">Figure 6-4. </span>Heat map of mean cross-validation score as a function of the degree of the polynomial features and alpha parameter of Ridge</h6>
+</div></figure>
+
+<p>Looking at the results produced by the cross-validation, we can see that
+using polynomials of degree two helps, but that degree-three polynomials
+are much worse than either degree one or two. This is reflected in the
+best parameters that were found:</p>
+
+<p><code><strong>In[31]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">print</code><code class="p">(</code><code class="s2">"Best parameters: {}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">best_params_</code><code class="p">))</code></pre>
+
+<p><code><strong>Out[31]:</strong></code></p>
+
+<pre data-type="programlisting">Best parameters: {'polynomialfeatures__degree': 2, 'ridge__alpha': 10}</pre>
+
+<p>Which lead to the following score:</p>
+
+<p><code><strong>In[32]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="k">print</code><code class="p">(</code><code class="s2">"Test-set score: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">score</code><code class="p">(</code><code class="n">X_test</code><code class="p">,</code> <code class="n">y_test</code><code class="p">)))</code></pre>
+
+<p><code><strong>Out[32]:</strong></code></p>
+
+<pre data-type="programlisting">Test-set score: 0.77</pre>
+
+<p>Let’s run a grid search without polynomial features for comparison:</p>
+
+<p><code><strong>In[33]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">param_grid</code> <code class="o">=</code> <code class="p">{</code><code class="s1">'ridge__alpha'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.001</code><code class="p">,</code> <code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">]}</code>
+<code class="n">pipe</code> <code class="o">=</code> <code class="n">make_pipeline</code><code class="p">(</code><code class="n">StandardScaler</code><code class="p">(),</code> <code class="n">Ridge</code><code class="p">())</code>
+<code class="n">grid</code> <code class="o">=</code> <code class="n">GridSearchCV</code><code class="p">(</code><code class="n">pipe</code><code class="p">,</code> <code class="n">param_grid</code><code class="p">,</code> <code class="n">cv</code><code class="o">=</code><code class="mi">5</code><code class="p">)</code>
+<code class="n">grid</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train</code><code class="p">,</code> <code class="n">y_train</code><code class="p">)</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Score without poly features: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">score</code><code class="p">(</code><code class="n">X_test</code><code class="p">,</code> <code class="n">y_test</code><code class="p">)))</code></pre>
+
+<p class="pagebreak-before"><code><strong>Out[33]:</strong></code></p>
+
+<pre data-type="programlisting">Score without poly features: 0.63</pre>
+
+<p><a data-type="indexterm" data-primary="" data-startref="SLCFmkpipe6a" id="idm45613652714968"></a><a data-type="indexterm" data-primary="" data-startref="Asupregridge6b" id="idm45613652713992"></a><a data-type="indexterm" data-primary="" data-startref="SLCFridge6b" id="idm45613652713048"></a>
+As we would expect looking at the grid search results visualized in <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#heatmap_mean_cv_score_func_degree_poly">Figure&nbsp;6-4</a>, using
+no polynomial features leads to decidedly worse results.</p>
+
+<p>Searching over
+preprocessing parameters together with model parameters is a very
+powerful strategy. However, keep in mind that <code>GridSearchCV</code> tries <em>all
+possible combinations</em> of the specified parameters. Therefore, adding
+more parameters to your grid exponentially increases the number of
+models that need to be built.</p>
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-type="sect1" data-pdf-bookmark="6.6 Grid-Searching Which Model To Use"><div class="sect1" id="grid-searching-what-model-to-use">
+<h1>6.6 Grid-Searching Which Model To Use</h1>
+
+<p><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="grid-searching for model selection" id="idm45613652708168"></a><a data-type="indexterm" data-primary="grid search" data-secondary="model selection with" id="idm45613652706712"></a><a data-type="indexterm" data-primary="models" data-secondary="selecting with grid search" id="idm45613652705768"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="MinMaxScaler" id="idm45613652704808"></a><a data-type="indexterm" data-primary="algorithms" data-secondary="scaling" data-tertiary="MinMaxScaler" id="idm45613652703848"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="RandomForestClassifier" id="idm45613652702632"></a>
+You can even go further in combining <code>GridSearchCV</code> and <code>Pipeline</code>: it
+is also possible to search over the actual steps being performed in the
+pipeline (say whether to use <code>StandardScaler</code> or <code>MinMaxScaler</code>). This
+leads to an even bigger search space and should be considered carefully.
+Trying all possible solutions is usually not a viable machine learning
+strategy. However, here is an example comparing a
+<code>RandomForestClassifier</code> and an <code>SVC</code> on the <code>iris</code> dataset. We know
+that the <code>SVC</code> might need the data to be scaled, so we also search over
+whether to use <code>StandardScaler</code> or no preprocessing. For the
+<code>RandomForestClassifier</code>, we know that no preprocessing is necessary. We
+start by defining the pipeline. Here, we explicitly name the steps. We
+want two steps, one for the preprocessing and then a classifier. We can
+instantiate this using <code>SVC</code> and <code>StandardScaler</code>:</p>
+
+<p><code><strong>In[34]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">pipe</code> <code class="o">=</code> <code class="n">Pipeline</code><code class="p">([(</code><code class="s1">'preprocessing'</code><code class="p">,</code> <code class="n">StandardScaler</code><code class="p">()),</code> <code class="p">(</code><code class="s1">'classifier'</code><code class="p">,</code> <code class="n">SVC</code><code class="p">())])</code></pre>
+
+<p><a data-type="indexterm" data-primary="" data-startref="SLCFpipeline6a" id="idm45613652673560"></a>
+Now we can define the <code>parameter_grid</code> to search over. We want the
+<code>classifier</code> to be either <code>RandomForestClassifier</code> or <code>SVC</code>. Because
+they have different parameters to tune, and need different
+preprocessing, we can make use of the list of search grids we discussed
+in <a data-type="xref" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch05.html#search-over-spaces-that-are-not-grids">“Search over spaces that are not grids”</a>. To assign an estimator to a step, we use the name of the
+step as the parameter name. When we wanted to skip a step in the
+pipeline (for example, because we don’t need preprocessing for the
+<code>RandomForest</code>), we can set that step to <code>None</code>:</p>
+
+<p><code><strong>In[35]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="kn">from</code> <code class="nn">sklearn.ensemble</code> <code class="kn">import</code> <code class="n">RandomForestClassifier</code>
+
+<code class="n">param_grid</code> <code class="o">=</code> <code class="p">[</code>
+    <code class="p">{</code><code class="s1">'classifier'</code><code class="p">:</code> <code class="p">[</code><code class="n">SVC</code><code class="p">()],</code> <code class="s1">'preprocessing'</code><code class="p">:</code> <code class="p">[</code><code class="n">StandardScaler</code><code class="p">(),</code> <code class="bp">None</code><code class="p">],</code>
+     <code class="s1">'classifier__gamma'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.001</code><code class="p">,</code> <code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">],</code>
+     <code class="s1">'classifier__C'</code><code class="p">:</code> <code class="p">[</code><code class="mf">0.001</code><code class="p">,</code> <code class="mf">0.01</code><code class="p">,</code> <code class="mf">0.1</code><code class="p">,</code> <code class="mi">1</code><code class="p">,</code> <code class="mi">10</code><code class="p">,</code> <code class="mi">100</code><code class="p">]},</code>
+    <code class="p">{</code><code class="s1">'classifier'</code><code class="p">:</code> <code class="p">[</code><code class="n">RandomForestClassifier</code><code class="p">(</code><code class="n">n_estimators</code><code class="o">=</code><code class="mi">100</code><code class="p">)],</code>
+     <code class="s1">'preprocessing'</code><code class="p">:</code> <code class="p">[</code><code class="bp">None</code><code class="p">],</code> <code class="s1">'classifier__max_features'</code><code class="p">:</code> <code class="p">[</code><code class="mi">1</code><code class="p">,</code> <code class="mi">2</code><code class="p">,</code> <code class="mi">3</code><code class="p">]}]</code></pre>
+
+<p>Now we can instantiate and run the grid search as usual, here on the
+<code>cancer</code> dataset:</p>
+
+<p><code><strong>In[36]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">X_train</code><code class="p">,</code> <code class="n">X_test</code><code class="p">,</code> <code class="n">y_train</code><code class="p">,</code> <code class="n">y_test</code> <code class="o">=</code> <code class="n">train_test_split</code><code class="p">(</code>
+    <code class="n">cancer</code><code class="o">.</code><code class="n">data</code><code class="p">,</code> <code class="n">cancer</code><code class="o">.</code><code class="n">target</code><code class="p">,</code> <code class="n">random_state</code><code class="o">=</code><code class="mi">0</code><code class="p">)</code>
+
+<code class="n">grid</code> <code class="o">=</code> <code class="n">GridSearchCV</code><code class="p">(</code><code class="n">pipe</code><code class="p">,</code> <code class="n">param_grid</code><code class="p">,</code> <code class="n">cv</code><code class="o">=</code><code class="mi">5</code><code class="p">)</code>
+<code class="n">grid</code><code class="o">.</code><code class="n">fit</code><code class="p">(</code><code class="n">X_train</code><code class="p">,</code> <code class="n">y_train</code><code class="p">)</code>
+
+<code class="k">print</code><code class="p">(</code><code class="s2">"Best params:</code><code class="se">\n</code><code class="s2">{}</code><code class="se">\n</code><code class="s2">"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">best_params_</code><code class="p">))</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Best cross-validation score: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">best_score_</code><code class="p">))</code>
+<code class="k">print</code><code class="p">(</code><code class="s2">"Test-set score: {:.2f}"</code><code class="o">.</code><code class="n">format</code><code class="p">(</code><code class="n">grid</code><code class="o">.</code><code class="n">score</code><code class="p">(</code><code class="n">X_test</code><code class="p">,</code> <code class="n">y_test</code><code class="p">)))</code></pre>
+
+<p><code><strong>Out[36]:</strong></code></p>
+
+<pre data-type="programlisting">Best params:
+{'classifier':
+ SVC(C=10, cache_size=200, class_weight=None, coef0=0.0,
+     decision_function_shape='ovr', degree=3, gamma=0.01, kernel='rbf',
+     max_iter=-1, probability=False, random_state=None, shrinking=True,
+     tol=0.001, verbose=False),
+ 'preprocessing':
+ StandardScaler(copy=True, with_mean=True, with_std=True),
+ 'classifier__C': 10, 'classifier__gamma': 0.01}
+
+Best cross-validation score: 0.99
+Test-set score: 0.98</pre>
+
+<p>The outcome of the grid search is that <code>SVC</code> with <code>StandardScaler</code>
+preprocessing, <code>C=10</code>, and <code>gamma=0.01</code> gave the best result.<a data-type="indexterm" data-primary="" data-startref="SLCFgridsearch6b" id="idm45613652399832"></a><a data-type="indexterm" data-primary="" data-startref="Csvc6b" id="idm45613652398824"></a><a data-type="indexterm" data-primary="" data-startref="SLCFsvc6b" id="idm45613652397880"></a><a data-type="indexterm" data-primary="" data-startref="Ascalstndscal6a" id="idm45613652396936"></a><a data-type="indexterm" data-primary="" data-startref="SLCFstdscal6a" id="idm45613652395992"></a></p>
+
+
+
+
+
+
+
+
+<section data-type="sect2" data-pdf-bookmark="6.6.1 Avoiding Redundant Computation"><div class="sect2" id="avoiding-redundant-computation">
+<h2>6.6.1 Avoiding Redundant Computation</h2>
+
+<p>When performing a large grid-search like the ones described earlier,
+the same steps are often used several times. For example, for each
+setting of the <code>classifier</code>, the <code>StandardScaler</code> is built again. For the
+<code>StandardScaler</code> this might not be a big issue, but if you are using a
+more expensive transformation (say, feature extraction with PCA or NMF),
+this is a lot of wasted computation. The easiest solution to this
+problem is caching computations. This can be done with the <code>memory</code>
+parameter of <code>Pipeline</code>, which takes a <code>joblib.Memory</code> object—or just
+a path to store the cache. Enabling caching can therefore be as simple
+as this:</p>
+
+<p><code><strong>In[37]:</strong></code></p>
+
+<pre data-type="programlisting" data-code-language="python"><code class="n">pipe</code> <code class="o">=</code> <code class="n">Pipeline</code><code class="p">([(</code><code class="s1">'preprocessing'</code><code class="p">,</code> <code class="n">StandardScaler</code><code class="p">()),</code> <code class="p">(</code><code class="s1">'classifier'</code><code class="p">,</code> <code class="n">SVC</code><code class="p">())],</code>
+                <code class="n">memory</code><code class="o">=</code><code class="s2">"cache_folder"</code><code class="p">)</code></pre>
+
+<p>There are two downsides to this method. The cache is managed by writing
+to disk, which requires serialization and actually reading and writing
+from disk. This means that using <code>memory</code> will only accelerate
+relatively slow transformations. Just scaling the data is likely to be
+faster than trying to read the already scaled data from disk. For
+expensive transformations, this can still be a big win, though. The other
+disadvantage is that using <code>n_jobs</code> can interfere with the caching.
+Depending on the execution order of the grid search, in the worst case a
+computation could be performed redundantly at the same time by <code>n_jobs</code>
+amount of workers before it is cached.</p>
+
+<p>Both of these can be avoided by using a replacement for
+<code>GridSearchCV</code> provided by the <a href="https://dask-ml.readthedocs.io/"><code>dask-ml</code> library</a>. <code>dask-ml</code> allows you to avoid redundant
+computation while performing parallel computations, even distributed
+over a cluster. If you are using expensive pipelines and performing
+extensive parameter searches, you should definitely have a look at
+<code>dask-ml</code>.</p>
+</div></section>
+
+
+
+
+
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-type="sect1" data-pdf-bookmark="6.7 Summary and Outlook"><div class="sect1" id="algorithm-chains-summary-and-outlook">
+<h1>6.7 Summary and Outlook</h1>
+
+<p><a data-type="indexterm" data-primary="algorithm chains and pipelines" data-secondary="overview of" id="idm45613652363560"></a><a data-type="indexterm" data-primary="scikit-learn classes and functions" data-secondary="Pipeline" id="idm45613652362424"></a>
+In this chapter we introduced the <code>Pipeline</code> class, a general-purpose
+tool to chain together multiple processing steps in a machine learning
+workflow. Real-world applications of machine learning rarely involve an
+isolated use of a model, and instead are a sequence of processing steps.
+Using pipelines allows us to encapsulate multiple steps into a single
+Python object that adheres to the familiar <code>scikit-learn</code> interface of
+<code>fit</code>, <code>predict</code>, and <code>transform</code>. In particular when doing model
+evaluation using cross-validation and parameter selection using
+grid search, using the <code>Pipeline</code> class to capture all the processing steps
+is essential for proper evaluation. The <code>Pipeline</code> class also allows
+writing more succinct code, and reduces the likelihood of mistakes that
+can happen when building processing chains without the <code>pipeline</code> class
+(like forgetting to apply all transformers on the test set, or not
+applying them in the right order). Choosing the right combination of
+feature extraction, preprocessing, and models is somewhat of an art, and often requires some trial and error. However, using pipelines, this
+“trying out” of many different processing steps is quite simple. When
+experimenting, be careful not to overcomplicate your processes, and
+make sure to evaluate whether every component you are including in your
+model is necessary.</p>
+
+<p>With this chapter, we have completed our survey of general-purpose tools
+and algorithms provided by <code>scikit-learn</code>. You now possess all the
+required skills and know the necessary mechanisms to apply machine
+learning in practice. In the next chapter, we will dive in more detail
+into one particular type of data that is commonly seen in practice, and
+that requires some special expertise to handle correctly: text data.<a data-type="indexterm" data-primary="" data-startref="MLalg6" id="idm45613652355656"></a><a data-type="indexterm" data-primary="" data-startref="algch6" id="idm45613652354680"></a></p>
+</div></section>
+
+
+
+
+
+
+
+<div data-type="footnotes"><p data-type="footnote" id="idm45613654541064"><sup><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#idm45613654541064-marker" class="totri-footnote">1</a></sup> With one exception: the name can’t contain a double underscore, <code>__</code>.</p><p data-type="footnote" id="idm45613653888168"><sup><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#idm45613653888168-marker" class="totri-footnote">2</a></sup> Or just <code>fit_transform</code>.</p></div></div></section><div class="annotator-outer annotator-viewer viewer annotator-hide">
+  <ul class="annotator-widget annotator-listing"></ul>
+</div><div class="annotator-modal-wrapper annotator-editor-modal annotator-editor annotator-hide">
+	<div class="annotator-outer editor">
+		<h2 class="title">Highlight</h2>
+		<form class="annotator-widget">
+			<ul class="annotator-listing">
+			<li class="annotator-item"><textarea id="annotator-field-0" placeholder="Add a note using markdown (optional)" class="js-editor" maxlength="750"></textarea></li></ul>
+			<div class="annotator-controls">
+				<a class="link-to-markdown" href="https://daringfireball.net/projects/markdown/basics" target="_blank">?</a>
+				<ul>
+					<li class="delete annotator-hide"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#delete" class="annotator-delete-note button positive">Delete Note</a></li>
+					<li class="save"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#save" class="annotator-save annotator-focus button positive">Save Note</a></li>
+					<li class="cancel"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#cancel" class="annotator-cancel button">Cancel</a></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div><div class="annotator-modal-wrapper annotator-delete-confirm-modal" style="display: none;">
+  <div class="annotator-outer">
+    <h2 class="title">Highlight</h2>
+      <a class="js-close-delete-confirm annotator-cancel close" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#close">Close</a>
+      <div class="annotator-widget">
+         <div class="delete-confirm">
+            Are you sure you want to permanently delete this note?
+         </div>
+         <div class="annotator-controls">
+            <a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#cancel" class="annotator-cancel button js-cancel-delete-confirm">No, I changed my mind</a>
+            <a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#delete" class="annotator-delete button positive js-delete-confirm">Yes, delete it</a>
+         </div>
+       </div>
+   </div>
+</div><div class="annotator-adder" style="display: none;">
+	<ul class="adders">
+		
+		<li class="copy"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#">Copy</a></li>
+		
+		<li class="add-highlight"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#">Add Highlight</a></li>
+		<li class="add-note"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#">
+			Add Note
+		</a></li>
+		
+	</ul>
+</div></div></div>
+
+
+
+  <div class="t-sbo-prev sbo-prev sbo-nav-bottom">
+  
+    
+      
+        <a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch05.html" class="prev nav-link">
+      
+          <span aria-hidden="true" class="pagination-label t-prev-label">Prev</span>
+          <span class="visuallyhidden">Previous Chapter</span>
+          <div class="pagination-title t-prev-title">5. Model Evaluation and Improvement</div>
+        </a>
+    
+  
+  </div>
+
+  <div class="t-sbo-next sbo-next sbo-nav-bottom">
+  
+    
+      
+        <a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch07.html" class="next nav-link">
+      
+          <span aria-hidden="true" class="pagination-label t-next-label">Next</span>
+          <span class="visuallyhidden">Next Chapter</span>
+          <div class="pagination-title t-next-title">7. Working with Text Data</div>
+        </a>
+    
+  
+  </div>
+
+
+        
+    </section>
+  </div>
+<section class="sbo-saved-archives"></section>
+
+
+
+          
+          
+  
+
+
+
+
+    
+    
+
+
+
+        
+      </div>
+      
+        
+
+<footer class="pagefoot t-pagefoot">
+  <a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" class="icon-up" onclick="window.Appcues.track(&#39;JumpTop_HeronBook&#39;)" style="display: none;"><div class="visuallyhidden">Back to top</div></a>
+  <ul class="js-footer-nav">
+  
+    
+    <li><a href="https://learning.oreilly.com/u/preferences/">Settings</a></li>
+    
+    <li><a href="https://learning.oreilly.com/public/support/">Support</a></li>
+    
+    <li><a href="https://learning.oreilly.com/accounts/logout/">Sign Out</a></li>
+    
+  
+  
+  </ul>
+  <span class="copyright">© 2020 <a href="https://learning.oreilly.com/" target="_blank">O'Reilly Media, Inc</a>.</span>
+  
+    
+    <a href="https://www.oreilly.com/terms/">Terms of Service</a> 
+     / 
+    
+    <a href="https://learning.oreilly.com/privacy">Privacy Policy</a> 
+    
+    
+  
+</footer>
+
+      
+    
+    <script src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/saved_resource" charset="utf-8"></script>
+    <script src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/saved_resource(1)" charset="utf-8"></script><script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1732687426968531");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1732687426968531&amp;ev=PageView&amp;noscript=1"></noscript><script type="text/javascript" id="">(function(){window.medalliaUserIdentifier=document.documentElement.dataset.userUuid;window.medalliaUserName=document.documentElement.dataset.username})();</script>
+<script type="text/javascript" id="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/embed.js.download"></script>
+<script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","443792972845831");fbq("set","agent","tmgoogletagmanager","443792972845831");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=443792972845831&amp;ev=PageView&amp;noscript=1"></noscript>
+
+<script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","443792972845831");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=443792972845831&amp;ev=PageView&amp;noscript=1"></noscript>
+<script type="text/javascript" id="">window._pp=window._pp||[];if("\/library\/view\/introduction-to-machine\/9781449369880\/ch06.html"=="/confirmation/nnv/"&&"https:\/\/learning.oreilly.com\/library\/view\/introduction-to-machine\/9781449369880\/"=="https://learning.oreilly.com/register/")_pp.targetUrl="/confirm/trial";else if("\/library\/view\/introduction-to-machine\/9781449369880\/ch06.html"=="/confirmation/nv/"&&"https:\/\/learning.oreilly.com\/library\/view\/introduction-to-machine\/9781449369880\/"=="https://learning.oreilly.com/subscribe/")_pp.targetUrl="/confirm/paid";else if("\/library\/view\/introduction-to-machine\/9781449369880\/ch06.html"=="/confirmation/nnv/"&&"https:\/\/learning.oreilly.com\/library\/view\/introduction-to-machine\/9781449369880\/"=="https://learning.oreilly.com/signup/")_pp.targetUrl="/confirm/paid";_pp.siteId="2508";
+_pp.siteUId="d5ff66c5-8631-4846-a88c-12cdf17d9449";_pp.orderValue="undefined";_pp.orderId="undefined";(function(){var ppjs=document.createElement("script");ppjs.type="text/javascript";ppjs.async=true;ppjs.src=("https:"==document.location.protocol?"https:":"http:")+"//cdn.pbbl.co/r/"+_pp.siteId+".js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ppjs,s)})();</script>
+  
+
+<div></div><div></div><div style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.8834076461472775"><img style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon0.003038998679349536" width="0" height="0" alt="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/0"></div><iframe height="0" width="0" frameborder="0" style="display: none;" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/pp.html"></iframe><div class="annotator-notice"></div><div class="font-flyout" style="top: 201.011px; left: 1830px;"><div class="font-controls-panel">
+	<div class="nightmodes">
+		<ul>
+			<li class="day"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" id="day-mode" title="Day Mode">
+				<i class="fa fa-sun-o"></i>
+				<span>Day Mode</span></a></li>
+			<li class="cloudy"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" id="cloudy-mode" title="Cloudy Mode">
+				<i class="fa fa-cloud"></i>
+				<span>Cloud Mode</span>
+			</a></li>
+			<li class="night"><a href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#" id="night-mode" title="Night Mode">
+				<i class="fa fa-moon-o"></i>
+				<span>Night Mode</span>
+			</a></li>
+		</ul>
+	</div>
+
+	<div class="font-resizer resizer">
+		<div class="draggable-containment-wrapper">
+			<i class="fa fa-font left"></i>
+			<span class="filler" style="width: 50%;"></span>
+			<div id="js-font-size-draggable" class="draggable ui-widget-content ui-draggable ui-draggable-handle" style="position: relative; left: 80px;"></div>
+			<i class="fa fa-font right"></i>
+		</div>
+	</div>
+
+	<div class="column-resizer resizer">
+		<div class="draggable-containment-wrapper">
+			<i class="fa fa-compress left"></i>
+			<span class="filler" style="width: 50%;"></span>
+			<div id="js-column-size-draggable" class="draggable ui-widget-content ui-draggable ui-draggable-handle" style="position: relative; left: 80px;"></div>
+			<i class="fa fa-expand right"></i>
+		</div>
+	</div>
+
+	<a id="reset" class="button" href="https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/ch06.html#">Reset</a>
+</div>
+</div><iframe src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/pixel.html" style="display: none;"></iframe><script type="text/javascript" async="" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/generic1593108139510.js.download" charset="UTF-8"></script><span></span><div style="display: none; visibility: hidden;"><script>(function(){if(null!==document.querySelector('iframe[title\x3d"fb:share_button Facebook Social Plugin"]')&&void 0!==document.querySelector('iframe[title\x3d"fb:share_button Facebook Social Plugin"]')){var a=!1;window.addEventListener("blur",function(){a&&dataLayer.push({event:"eventTracker",eventCat:"social",eventAct:"share",eventLbl:"facebook",eventVal:0,nonInteraction:0})});document.querySelector('iframe[title\x3d"fb:share_button Facebook Social Plugin"]').addEventListener("mouseover",function(){window.focus();
+a=!0});document.querySelector('iframe[title\x3d"fb:share_button Facebook Social Plugin"]').addEventListener("mouseout",function(){a=!1})}if(null!==document.querySelector("iframe.twitter-share-button")&&void 0!==document.querySelector("iframe.twitter-share-button")){var b=!1;window.addEventListener("blur",function(){b&&dataLayer.push({event:"eventTracker",eventCat:"social",eventAct:"share",eventLbl:"twitter",eventVal:0,nonInteraction:0})});document.querySelector("iframe.twitter-share-button").addEventListener("mouseover",
+function(){window.focus();b=!0});document.querySelector("iframe.twitter-share-button").addEventListener("mouseout",function(){b=!1})}try{window.twttr=function(a,b,d){var c,e=a.getElementsByTagName(b)[0];if(!a.getElementById(d))return a=a.createElement(b),a.id=d,a.src="//platform.twitter.com/widgets.js",e.parentNode.insertBefore(a,e),window.twttr||(c={_e:[],ready:function(a){c._e.push(a)}})}(document,"script","twitter-wjs"),twttr.ready(function(a){a.events.bind("tweet",trackTwitter)})}catch(c){}})();
+null!==document.querySelector(".IN-widget")&&void 0!==document.querySelector(".IN-widget")&&document.querySelector(".IN-widget").addEventListener("click",function(){dataLayer.push({event:"eventTracker",eventCat:"social",eventAct:"share",eventLbl:"linkedin",eventVal:0,nonInteraction:0})});
+function trackTwitter(a){a&&(a.target&&"IFRAME"==a.target.nodeName&&(opt_target=extractParamFromUri(a.target.src,"url")),dataLayer.push({event:"eventTracker",eventCat:"social",eventAct:"share",eventLbl:"twitter",eventVal:0,nonInteraction:0}))}function extractParamFromUri(a,b){if(a&&(b=new RegExp("[\\?\x26#]"+b+"\x3d([^\x26#]*)"),a=b.exec(a),null!=a))return unescape(a[1])};</script></div><script type="text/javascript" id="">function forceInputUppercase(a){var b=a.target.selectionStart,c=a.target.selectionEnd;a.target.value=a.target.value.toUpperCase();a.target.setSelectionRange(b,c)}void 0!=document.getElementById("id_promotion")&&null!=document.getElementById("id_promotion")&&document.getElementById("id_promotion").addEventListener("keyup",forceInputUppercase,!1);
+void 0!=document.getElementsByName("promotionCode")[0]&&null!=document.getElementsByName("promotionCode")[0]&&document.getElementsByName("promotionCode")[0].addEventListener("keyup",forceInputUppercase,!1);</script><script type="text/javascript" id="">var nonwExpandable=document.querySelectorAll(".orm-ff-NavigationSubnav-headerListItem a, .orm-ff-NavigationView-headerListItem a");nonwExpandable.forEach(function(a,b){b+1!=nonwExpandable.length?a.addEventListener("click",function(){dataLayer.push({event:"eventTracker",eventCat:"global nav",eventAct:"navigation",eventLbl:a.childNodes[1].textContent})}):b+1==nonwExpandable.length&&a.addEventListener("click",function(){dataLayer.push({event:"eventTracker",eventCat:"user login",eventAct:"logout",eventLbl:"global nav | unified"})})});
+var nonwExpandableFo=document.querySelectorAll(".drop-content li:not(.flyout-parent) a");
+nonwExpandableFo.forEach(function(a,b){"drop-content"==a.parentNode.parentNode.parentNode.className&&b+1!=nonwExpandableFo.length?a.addEventListener("click",function(){dataLayer.push({event:"eventTracker",eventCat:"global nav",eventAct:"navigation",eventLbl:a.childNodes[1].textContent})}):"drop-content"==a.parentNode.parentNode.parentNode.className&&b+1==nonwExpandableFo.length&&a.addEventListener("click",function(){dataLayer.push({event:"eventTracker",eventCat:"user login",eventAct:"logout",eventLbl:"global nav | unified"})})});
+var expandable=document.querySelectorAll(".orm-ff-NavigationSubnav-toggleControls a, .orm-ff-NavigationView-toggleControls a");expandable.forEach(function(a){a.addEventListener("click",function(){dataLayer.push({event:"eventTracker",eventCat:"global nav",eventAct:"navigation",eventLbl:a.parentNode.parentNode.parentNode.querySelectorAll(".orm-Button-btnContentWrap span")[0].childNodes[1].textContent+" | "+a.textContent})})});var flyoutLinks=document.querySelectorAll(".flyout a");
+flyoutLinks.forEach(function(a){a.addEventListener("click",function(){dataLayer.push({event:"eventTracker",eventCat:"global nav",eventAct:"navigation",eventLbl:a.closest("li.flyout-parent").getElementsByTagName("a")[0].textContent+" | "+a.textContent})})});</script><iframe scrolling="no" frameborder="0" allowtransparency="true" src="./6. Algorithm Chains and Pipelines - Introduction to Machine Learning with Python_files/widget_iframe.c4b33f07650267db9f8a72eaac551cac.html" title="Twitter settings iframe" style="display: none;"></iframe></body></html>

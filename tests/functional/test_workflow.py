@@ -96,6 +96,24 @@ def test_workflow_model_file(pickled):
     assert isinstance(pickle.load(file), sklearn.ensemble.RandomForestRegressor)
 
 
+def pipe_training_constructor():
+    features, labels = training_data_constructor()
+    pipe = train.training_with_pipeline(
+        df=features,
+        labels=labels,
+        pickle_path=str(config["Default"]["pickle_data"]),
+        pipe_file="test_pipe.pkl",
+    )
+    return pipe
+
+
+def test_workflow_pipe_file(pickled):
+    pipe_training_constructor()
+    file = open(f"{pickled}/test_pipe.pkl", "rb")
+    # Check whether correct imputer loaded
+    assert isinstance(pickle.load(file), sklearn.pipeline.Pipeline)
+
+
 def testing_data_constructor():
     train_sample, test_sample = split_data_constructor()
     features, labels = score.load_scoring_data(df=test_sample)
@@ -133,5 +151,24 @@ def model_scoring_constructor():
 
 def test_workflow_model_score():
     labels, rmse = model_scoring_constructor()
+    # Check whether scoring is appropriate
+    assert np.round(rmse / np.mean(labels), 2) < 0.3
+
+
+def pipe_scoring_constructor():
+    features, labels = testing_data_constructor()
+    output, rmse = score.scoring_with_pipeline(
+        df=features,
+        actuals=labels,
+        pickle_path=str(config["Default"]["pickle_data"]),
+        pipe_file="test_pipe.pkl",
+        output_path=str(config["Default"]["output_data"]),
+        output_file="test_pipe_output.csv",
+    )
+    return labels, rmse
+
+
+def test_workflow_pipe_score():
+    labels, rmse = pipe_scoring_constructor()
     # Check whether scoring is appropriate
     assert np.round(rmse / np.mean(labels), 2) < 0.3
