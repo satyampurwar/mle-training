@@ -137,9 +137,9 @@ def save_split_data(df, processed_path=None, split_size=0.2):
     Returns
     -------
     strat_train_set : object
-        The pandas dataframe of train data.
+        The pandas dataframe of train data without income categories.
     strat_test_set : object
-        The pandas dataframe of test data.
+        The pandas dataframe of test data without income categories.
 
     """
     split = StratifiedShuffleSplit(n_splits=1, test_size=split_size, random_state=42)
