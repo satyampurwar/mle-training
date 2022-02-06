@@ -9,7 +9,9 @@
 #Ignore log files anywhere
 *.log
 # Ignore setuptools distribution folder in root location
-# /dist/
+/dist/
+# Ignore setuptools distribution folder in root location
+/mlruns/
 # Ignore python egg metadata in src folder, regenerated from source files by setuptools
 /src/*.egg-info
 # Ignore pycache folder anywhere
