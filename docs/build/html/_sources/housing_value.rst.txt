@@ -43,3 +43,11 @@ housing\_value.score module
    :members:
    :undoc-members:
    :show-inheritance:
+
+housing\_value.main module
+--------------------------
+
+.. automodule:: housing_value.main
+   :members:
+   :undoc-members:
+   :show-inheritance:

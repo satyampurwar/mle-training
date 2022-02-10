@@ -127,7 +127,8 @@ def rf_regressor_model_training(df_prepared, labels, pickle_path=None, model_fil
     -------
     model : object
         The sklearn.ensemble.RandomForestRegressor object.
-
+    best_param : dictionary
+        parameters of selected model
     """
     logger.debug("Training model")
     param_grid = [
@@ -146,6 +147,7 @@ def rf_regressor_model_training(df_prepared, labels, pickle_path=None, model_fil
         return_train_score=True,
     )
     grid_search.fit(df_prepared, labels)
+    best_param = grid_search.best_params_
     model = grid_search.best_estimator_
     if pickle_path and model_file:
         pickle.dump(model, open(f"{pickle_path}/{model_file}", "wb"))
@@ -155,7 +157,7 @@ def rf_regressor_model_training(df_prepared, labels, pickle_path=None, model_fil
         logger.info(f"Saved model pickle file at : {pickle_path}")
     else:
         pass
-    return model
+    return model, best_param
 
 
 def training_with_pipeline(df, labels, pickle_path=None, pipe_file=None):
@@ -176,7 +178,8 @@ def training_with_pipeline(df, labels, pickle_path=None, pipe_file=None):
     -------
     pipe : object
         The sklearn.pipeline.Pipeline object.
-
+    best_param : dictionary
+        parameters of selected model which is integrated in pipeline
     """
     logger.debug("Training Pipeline")
 
@@ -224,6 +227,7 @@ def training_with_pipeline(df, labels, pickle_path=None, pipe_file=None):
         return_train_score=True,
     )
     grid_search.fit(df, labels)
+    best_param = grid_search.best_params_
     pipe = grid_search.best_estimator_
     if pickle_path and pipe_file:
         pickle.dump(pipe, open(f"{pickle_path}/{pipe_file}", "wb"))
@@ -233,7 +237,7 @@ def training_with_pipeline(df, labels, pickle_path=None, pipe_file=None):
         logger.info(f"Saved pipe pickle file at : {pickle_path}")
     else:
         pass
-    return pipe
+    return pipe, best_param
 
 
 if __name__ == "__main__":
@@ -317,13 +321,13 @@ if __name__ == "__main__":
     #     df=housing, pickle_path=PICKLE_DATA, imputer_file=IMPUTER_FILE
     # )
 
-    # model = rf_regressor_model_training(
+    # model, best_param = rf_regressor_model_training(
     #     df_prepared=housing_prepared,
     #     labels=housing_labels,
     #     pickle_path=PICKLE_DATA,
     #     model_file=MODEL_FILE,
     # )
 
-    pipe = training_with_pipeline(
+    pipe, best_param = training_with_pipeline(
         df=housing, labels=housing_labels, pickle_path=PICKLE_DATA, pipe_file=PIPE_FILE,
     )

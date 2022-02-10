@@ -1,0 +1,12 @@
+channels:
+- defaults
+dependencies:
+- python=3.9.5
+- scikit-learn=1.0.1
+- pip=21.2.4
+- pip:
+  - housing_value-0.0.0.tar.gz
+  - mlflow==1.23.1
+  - cloudpickle==2.0.0
+  - typing-extensions==3.10.0.2
+name: mlflow-env

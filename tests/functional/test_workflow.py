@@ -80,7 +80,7 @@ def test_workflow_imputer_file(pickled):
 
 def model_training_constructor():
     feature_prepared, labels = train_feature_engineering_constructor()
-    model = train.rf_regressor_model_training(
+    model, best_param = train.rf_regressor_model_training(
         df_prepared=feature_prepared,
         labels=labels,
         pickle_path=str(config["Default"]["pickle_data"]),
@@ -98,7 +98,7 @@ def test_workflow_model_file(pickled):
 
 def pipe_training_constructor():
     features, labels = training_data_constructor()
-    pipe = train.training_with_pipeline(
+    pipe, best_param = train.training_with_pipeline(
         df=features,
         labels=labels,
         pickle_path=str(config["Default"]["pickle_data"]),
