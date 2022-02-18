@@ -1,4 +1,4 @@
-# Problem Statement
+## Problem Statement
  - The housing data can be downloaded from https://raw.githubusercontent.com/ageron/handson-ml/master/. The script has codes to download the data. We have modelled the median house value on given housing data.
  - The following techniques have been used:
     - Linear regression
@@ -17,27 +17,33 @@
  - `conda env create --file deploy/conda/linux_cpu_py39.yml`
  - `conda activate mle-dev`
  - Install dependencies using conda or pip based on requirement
- - `conda env export --name mle-dev > deploy/conda/linux_cpu_py39.yml`
- - To deactivate current environment : `conda deactivate`
+ - Updating yml : `conda env export --name mle-dev > deploy/conda/linux_cpu_py39.yml`
  - To activate development environment : `conda activate mle-dev`
+ - To deactivate current environment : `conda deactivate`
 ## Code Aesthetics
  - Configurations are mentioned in setup.cfg
  - Configurations are mentioned in .vscode/settings.json if using vscode
  - `black <script.py>`
  - `isort <script.py>`
  - `flake8 <script.py>`
-## Packaging
- - To install package in editable mode : `pip install -e .`
- - To create package distribution : `python setup.py sdist`
 ## Execution of Scripts
  - `python src/housing_value/ingest_data.py --help`
  - `python src/housing_value/train.py --help`
  - `python src/housing_value/score.py --help`
-## Testing of scripts
+## Testing of Scripts
  - Configurations are mentioned in setup.cfg
  - `pytest`
  - `pytest <test_directory>/<test.py>`
-## Documentation
+## Logging while Execution of Scripts
+ - Logs captured while packaging of the application : `cat logs/main.log`
+## Documentation using Sphinx
+ - Make sure package is installed before documentation -
+   - 1st Method :
+      - To install package in editable mode : `pip install -e .`
+   - 2nd Method :
+      - `python3 -m pip install --upgrade build`
+      - `python3 -m build`
+      - `pip install dist/housing_value-0.0.0-py3-none-any.whl`
  - `cd docs`
  - `rm source/housing_value.rst source/modules.rst`
  - `sphinx-apidoc -o ./source ../src/housing_value`
@@ -45,17 +51,50 @@
  - `make clean`
  - `make html`
  - `cd ..`
- ## MLflow
- - Cleaning : `rm -r mlruns`
+## Source Packaging with setuptools
+ <!-- ## Packaging with setup.py
+ - To install package in editable mode : `pip install -e .`
+ - To create package distribution : `python setup.py sdist` -->
+ - Note : Packaging related metadata in setup.cfg (static) is preferred over setup.py (dynamic)
+ - `python3 -m pip install --upgrade build`
+ - `python3 -m build`
+## Testing installed Package
+ - Test Installation :
+   - `pip uninstall housing_value`
+   - `pip install dist/housing_value-0.0.0.tar.gz`
+   - `pip uninstall housing_value`
+   - `pip install dist/housing_value-0.0.0-py3-none-any.whl`
+   - `pip uninstall housing_value`
+   - `pip install dist/housing_value-0.0.0-py3-none-any.whl`
+   - `python`
+   - `import housing_value`
+   - `exit()`
+   - `pip uninstall housing_value`
+ - Test the valid installation with scripts :
+   - `pip install dist/housing_value-0.0.0-py3-none-any.whl`
+   - Actually you must run this without src folder to check installation : `pytest`
+   - `pip uninstall housing_value`
+## Application Packaging with Mlflow
+ - Cleaning existing mlruns if not required : `rm -r mlruns`
  - Tracking : `mlflow server --backend-store-uri mlruns/ --default-artifact-root mlruns/ --host 127.0.0.1 --port 5000`
- - Creating distribution of owned application :
-    - `pip install -e .`
-    - `python setup.py sdist`
-    - Add distibution to pip list in deploy/conda/linux_cpu_py39.yml by adding : `../../dist/housing_value-0.0.0.tar.gz`
+ - Creating distribution of application if not created while source packaging or removed later :
+   - `python3 -m pip install --upgrade build`
+   - `python3 -m build`
+   - Add distibution to pip list in deploy/conda/linux_cpu_py39.yml by adding : `../../dist/housing_value-0.0.0-py3-none-any.whl`
  - Packaging : `mlflow run . -P <parameters>`
- - Remember to pick correct experiment and run for standardization & deployment in below steps.
+ - Remember to pick correct experiment and run (i.e. train step) for standardization & deployment in below steps
  - Standardization of deployment environment :
-   - `cp dist/housing_value-0.0.0.tar.gz mlruns/<experiment_id>/<runid>/artifacts/model`
-   - `cp deploy/conda/conda-lean.yaml mlruns/<experiment_id>/<runid>/artifacts/model/conda.yaml`
- - Deployment of trained model : `mlflow models serve -m mlruns/<experiment_id>/<runid>/artifacts/model/ -h 127.0.0.1 -p 1234`
- - Testing API endpoint : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://127.0.0.1:1234/invocations`
+   - `cp dist/housing_value-0.0.0-py3-none-any.whl mlruns/<experiment_id>/<run_id>/artifacts/model`
+   - Source code distribution is specified in conda-lean.yaml
+   - `cp deploy/conda/conda-lean.yaml mlruns/<experiment_id>/<run_id>/artifacts/model/conda.yaml`
+## Logging while Mlflow Packaging
+ - Logs captured while packaging of the application : `cat logs/main.log`
+## Run Application with Mlflow
+ - Deployment of trained model : `mlflow models serve -m mlruns/<experiment_id>/<run_id>/artifacts/model/ -h 127.0.0.1 -p 1234`
+ - Testing API endpoint from other terminal : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://127.0.0.1:1234/invocations`
+## Changing Configuration
+ - Make changes in setup.cfg
+ - Do fresh build
+   - `python3 -m pip install --upgrade build`
+   - `python3 -m build`
+ - Run steps from **Testing installed Package** to **Logging while Mlflow Packaging**
