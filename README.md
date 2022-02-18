@@ -9,7 +9,7 @@
  - Features are generated and the variables are checked for correlation.
  - Multiple sampling techinuqies are evaluated. The data set is split into train and test.
  - All the above said modelling techniques are tried and evaluated. The final metric used to evaluate is mean squared error.
- - Development code is present in <base>/mle-training/notebooks/reference/nonstandardcode
+ - Development code is present in <base>/mle-training/reference/nonstandardcode
  - First draft to productionize code is present in <base>/mle-training/notebooks/personal
  - Random Forest technique is selected for deployment
 ## Virtual Environment
@@ -47,7 +47,7 @@
  - `cd docs`
  - `rm source/housing_value.rst source/modules.rst`
  - `sphinx-apidoc -o ./source ../src/housing_value`
- - Amendments : make amendments in **source/housing_value.rst** by following **notebooks/reference/housing_value.rst** if required before build
+ - Amendments : make amendments in **source/housing_value.rst** by following **reference/housing_value.rst** if required before build
  - `make clean`
  - `make html`
  - `cd ..`
