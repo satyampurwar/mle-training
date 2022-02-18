@@ -121,7 +121,7 @@ dependencies:
   - zlib=1.2.11=h7b6447c_3
   - zstd=1.4.9=haebb681_0
   - pip:
-    - ../../dist/housing_value-0.0.0.tar.gz
+    - ../../dist/housing_value-0.0.0-py3-none-any.whl
     - alembic==1.7.6
     - argon2-cffi==21.3.0
     - argon2-cffi-bindings==21.2.0
