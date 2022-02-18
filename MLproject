@@ -6,4 +6,4 @@ entry_points:
   main:
     parameters:
       split_size: {type: float, default: 0.2}
-    command: "python src/housing_value/main.py {split_size}"
+    command: "python app.py {split_size}"
