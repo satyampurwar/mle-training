@@ -1,0 +1,9 @@
+name: mlflow_integration
+
+conda_env: deploy/conda/linux_cpu_py39.yml
+
+entry_points:
+  main:
+    parameters:
+      split_size: {type: float, default: 0.2}
+    command: "python app.py {split_size}"
