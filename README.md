@@ -35,7 +35,7 @@
  - `pytest`
  - `pytest <test_directory>/<test.py>`
 ## Logging while Execution of Scripts
- - Logs captured while packaging of the application : `cat logs/main.log`
+ - Logs captured while execution of scripts : `cat logs/main.log`
 ## Documentation using Sphinx
  - Make sure package is installed before documentation -
    - 1st Method :
