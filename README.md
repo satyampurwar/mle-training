@@ -126,12 +126,12 @@
  - Starting Container : `docker run -dit -p 8080:5000 --name my_app satyamta/housing:latest`
  - Testing the endpoint from host : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://0.0.0.0:8080/invocations`
  - Push Image to Dockerhub :
-  - `docker login`
-  - `docker push satyamta/housing:latest`
+   - `docker login`
+   - `docker push satyamta/housing:latest`
  - Delete Container & Image from current environment :
-  - `docker rm -f my_app`
-  - `docker rmi satyamta/housing:latest`
+   - `docker rm -f my_app`
+   - `docker rmi satyamta/housing:latest`
  - Retest in new environment :
-  - Pull Image : `docker pull satyamta/housing:latest`
-  - Starting Container : `docker run -dit -p 8080:5000 --name my_app satyamta/housing:latest`
-  - Testing the endpoint from host : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://0.0.0.0:8080/invocations`
+   - Pull Image : `docker pull satyamta/housing:latest`
+   - Starting Container : `docker run -dit -p 8080:5000 --name my_app satyamta/housing:latest`
+   - Testing the endpoint from host : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://0.0.0.0:8080/invocations`
