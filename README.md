@@ -98,3 +98,40 @@
    - `python3 -m pip install --upgrade build`
    - `python3 -m build`
  - Run steps from **Testing installed Package** to **Logging while Mlflow Packaging**
+## Bundling Deployment Artifacts for Containerization
+ - `cd <base>/mle-training/deploy/docker`
+ - Model Artifacts :
+   - Manually copy main artifacts - **MLmodel & model.pkl** in **mlruns** folder which is a cleaned folder unlike original **mlruns** obtained while **Application Packaging with Mlflow**
+   - Copy **whl file of source/application package** for installation in image/container
+ - Cleaning Metadata : Remove the following irrevelant metadata in **MLmodel** file based on preferred deployment environment -
+   - *env: conda.yaml* because --no-conda is opted in run.sh script while serving model
+   - *python_version* because base image in Dockerfile is *FROM python:3.9-slim-bullseye* and version used while development was *python 3.9.5*
+   - *model_uuid* because **mlruns** is cleaned for deployment
+   - *run_id* because **mlruns** is cleaned for deployment
+ - Image Developement :
+   - Fix original versions of packages used during development in **requirements.txt**
+   - **.dockerignore** - to ignore copying files in *WORKDIR* of image/container
+   - **Dockerfile** to build image
+ - Starting Container :
+   - **run.sh** will start the application
+     - **run.sh** is referred in *CMD* of Dockerfile
+     - Make sure to bind the host server to avoid this error - curl: (52) Empty reply from server
+ - Endpoint Testing :
+   - **setup.cfg** is required to process the input data
+     - Only Data related info is kept in this
+     - This shall be present at location from where the code is relatively executed
+ - Integration : Take care to integrate above reference in Dockerfile
+## Containerizing Application
+ - Image Developement : `docker build -t satyamta/housing:latest .`
+ - Starting Container : `docker run -dit -p 8080:5000 --name my_app satyamta/housing:latest`
+ - Testing the endpoint from host : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://0.0.0.0:8080/invocations`
+ - Push Image to Dockerhub :
+  - `docker login`
+  - `docker push satyamta/housing:latest`
+ - Delete Container & Image from current environment :
+  - `docker rm -f my_app`
+  - `docker rmi satyamta/housing:latest`
+ - Retest in new environment :
+  - Pull Image : `docker pull satyamta/housing:latest`
+  - Starting Container : `docker run -dit -p 8080:5000 --name my_app satyamta/housing:latest`
+  - Testing the endpoint from host : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://0.0.0.0:8080/invocations`
