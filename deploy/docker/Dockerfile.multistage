@@ -1,0 +1,36 @@
+# Builder Stage
+FROM python:3.9-slim-bullseye AS builder
+# Virtual Environment
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+# Making directory for application artifacts
+RUN mkdir -p /opt/app
+WORKDIR /opt/app
+COPY . .
+# Installing dependencies and cleaning
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt \
+    && rm housing_value-0.0.0-py3-none-any.whl requirements.txt \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Runtime Stage
+FROM python:3.9-slim-bullseye AS runtime
+# Copy binaries and artifacts from builder image
+COPY --from=builder /opt /opt
+# Make sure we use the Virtual Env
+ENV PATH="/opt/venv/bin:$PATH"
+# Labelling & Environment Variables
+LABEL maintainer="Satyam"
+ENV SERVER_HOST 0.0.0.0
+ENV ARTIFACTS_STORE /opt/app/mlruns/
+# Pointer at this directory
+WORKDIR /opt/app
+# Switching to non root user
+RUN groupadd -r nonroot \
+    && useradd -r -g nonroot nonroot
+RUN chown nonroot /opt/app
+USER nonroot
+# Execution
+ENTRYPOINT ["/usr/bin/env"]
+CMD ["bash", "/opt/app/run.sh"]
