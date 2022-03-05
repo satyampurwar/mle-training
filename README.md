@@ -111,7 +111,7 @@
  - Image Developement :
    - Fix original versions of packages used during development in **requirements.txt**
    - **.dockerignore** - to ignore copying files in *WORKDIR* of image/container
-   - **Dockerfile** to build image
+   - **Dockerfiles** to build image
  - Starting Container :
    - **run.sh** will start the application
      - **run.sh** is referred in *CMD* of Dockerfile
@@ -122,16 +122,23 @@
      - This shall be present at location from where the code is relatively executed
  - Integration : Take care to integrate above reference in Dockerfile
 ## Containerizing Application
- - Image Developement : `docker build -t satyamta/housing:latest .`
- - Starting Container : `docker run -dit -p 8080:5000 --name my_app satyamta/housing:latest`
+ - Image Developement : `docker build . -t satyamta/housing:rootuser -f Dockerfile.rootuser`
+ - Starting Container : `docker run -dit -p 8080:5000 --name rootuser satyamta/housing:rootuser`
  - Testing the endpoint from host : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://0.0.0.0:8080/invocations`
  - Push Image to Dockerhub :
    - `docker login`
-   - `docker push satyamta/housing:latest`
+   - `docker push satyamta/housing:rootuser`
  - Delete Container & Image from current environment :
-   - `docker rm -f my_app`
-   - `docker rmi satyamta/housing:latest`
+   - `docker rm -f rootuser`
+   - `docker rmi satyamta/housing:rootuser`
  - Retest in new environment :
-   - Pull Image : `docker pull satyamta/housing:latest`
-   - Starting Container : `docker run -dit -p 8080:5000 --name my_app satyamta/housing:latest`
+   - Pull Image : `docker pull satyamta/housing:rootuser`
+   - Starting Container : `docker run -dit -p 8080:5000 --name rootuser satyamta/housing:rootuser`
    - Testing the endpoint from host : `curl -X POST -H "Content-Type:application/json; format=pandas-split" --data '{"columns":["longitude", "latitude", "housing_median_age", "total_rooms", "total_bedrooms", "population", "households", "median_income", "ocean_proximity"],"data":[[-118.39, 34.12, 29.0, 6447.0, 1012.0, 2184.0, 960.0, 8.2816, "<1H OCEAN"]]}' http://0.0.0.0:8080/invocations`
+ - Advance Images :
+   - Without root user to enable security and avoid the hacking of host server :
+      - `docker build . -t satyamta/housing:nonrootuser -f Dockerfile.nonrootuser`
+      - `docker push satyamta/housing:nonrootuser`
+   - Buildkit for Multistage build to decrease image size and enable faster build time :
+      - `DOCKER_BUILDKIT=1 docker build . -t satyamta/housing:multistage -f Dockerfile.multistage`
+      - `docker push satyamta/housing:multistage`
