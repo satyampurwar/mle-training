@@ -5,7 +5,7 @@
 #Ignore tgz data files anywhere
 *.tgz
 #Ignore pkl files anywhere
-*.pkl
+#*.pkl
 #Ignore log files anywhere
 *.log
 # Ignore setuptools distribution folder in root location
