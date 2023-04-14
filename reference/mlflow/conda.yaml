@@ -1,9 +1,14 @@
 channels:
 - defaults
 dependencies:
-- python=3.6.8
-- scikit-learn=0.21.3
+- python=3.9.5
+- scikit-learn=1.0.1
+- pip=21.2.4
 - pip:
-  - mlflow
-  - cloudpickle==1.2.2
+  - numpy==1.23.4
+  - housing_value-0.0.0-py3-none-any.whl
+  - mlflow==1.23.1
+  - cloudpickle==2.0.0
+  - typing-extensions==3.10.0.2
+  - protobuf==3.20
 name: mlflow-env

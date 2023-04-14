@@ -20,6 +20,7 @@
  - Updating yml : `conda env export --name mle-dev > deploy/conda/linux_cpu_py39.yml`
  - To activate development environment : `conda activate mle-dev`
  - To deactivate current environment : `conda deactivate`
+ - To remove environment (if required) : `conda remove --name ENVNAME --all`
 ## Code Aesthetics
  - Configurations are mentioned in setup.cfg
  - Configurations are mentioned in .vscode/settings.json if using vscode
@@ -116,6 +117,7 @@
    - **run.sh** will start the application
      - **run.sh** is referred in *CMD* of Dockerfile
      - Make sure to bind the host server to avoid this error - curl: (52) Empty reply from server
+     - Gunicorn server only listening to container port 5000
  - Endpoint Testing :
    - **setup.cfg** is required to process the input data
      - Only Data related info is kept in this
@@ -128,9 +130,14 @@
  - Push Image to Dockerhub :
    - `docker login`
    - `docker push satyamta/housing:rootuser`
+ - List of images and containers :
+   - Images : `docker image ls`
+   - Containers : `docker ps --all`
+ - Logs :
+   - `docker logs <container_name>`
  - Delete Container & Image from current environment :
-   - `docker rm -f rootuser`
-   - `docker rmi satyamta/housing:rootuser`
+   - Containers : `docker rm -f rootuser`
+   - Images : `docker rmi satyamta/housing:rootuser`
  - Retest in new environment :
    - Pull Image : `docker pull satyamta/housing:rootuser`
    - Starting Container : `docker run -dit -p 8080:5000 --name rootuser satyamta/housing:rootuser`
